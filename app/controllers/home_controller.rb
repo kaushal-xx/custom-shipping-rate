@@ -21,6 +21,9 @@ class HomeController < ShopifyApp::AuthenticatedController
 
   def shipping_cal
     shipping_price = ShippingWeight.get_price(params)
+    puts "*************************"
+    puts shipping_price
+    puts "*************************"
     if shipping_price.to_f > 0.0
       data = {
           "rates" => [
