@@ -1,4 +1,5 @@
 class HomeController < ShopifyApp::AuthenticatedController
+  skip_before_filter :verify_authenticity_token, :only => [:shipping_cal]
   def index
   	@state = ShippingWeight.select("state").uniq.order("state")
   	@sheet_headers = ShippingWeight.select("weight").uniq.order("weight ASC")
