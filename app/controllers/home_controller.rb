@@ -1,5 +1,7 @@
-class HomeController < ShopifyApp::AuthenticatedController
+class HomeController < ApplicationController
+
   skip_before_filter :verify_authenticity_token, :only => [:shipping_cal]
+
   def index
   	@state = ShippingWeight.select("state").uniq.order("state")
   	@sheet_headers = ShippingWeight.select("weight").uniq.order("weight ASC")
@@ -21,9 +23,9 @@ class HomeController < ShopifyApp::AuthenticatedController
 
   def shipping_cal
     shipping_price = ShippingWeight.get_price(params)
-    puts "*************************"
+    Rails.logger.info "*************************"
     puts shipping_price
-    puts "*************************"
+    Rails.logger.info "*************************"
     if shipping_price.to_f > 0.0
       data = {
           "rates" => [
