@@ -28,7 +28,7 @@ class ShippingWeightsController < ApplicationController
                {
                    "service_name" => "Shipping + Handling",
                    "service_code" => "ON",
-                   "total_price" => shipping_price.to_f,
+                   "total_price" => shipping_price.to_f*100,
                    "description" => "Select this option for all orders",
                    "currency" => "USD"
                }
