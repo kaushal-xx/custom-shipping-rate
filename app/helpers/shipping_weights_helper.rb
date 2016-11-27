@@ -1,0 +1,2 @@
+module ShippingWeightsHelper
+end

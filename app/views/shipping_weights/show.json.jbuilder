@@ -1,0 +1,1 @@
+json.partial! "shipping_weights/shipping_weight", shipping_weight: @shipping_weight

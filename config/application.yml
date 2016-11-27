@@ -1,0 +1,14 @@
+development:
+  shopify_api_key: "c67c6718da87efdf792547a6bb83a3c7"
+  shopify_secret: "046a6fc5252d1d85602eea6d1aac558f"
+  ups_user_id: 'jnatowitz@lapineinc.com'
+  ups_password: 'P444word!'
+  ups_key: 'ACD8A71E16D5BA35'
+  app_url: 'http://localhost:3000'
+production:
+  shopify_api_key: "fc17590bcaa14a6d902f6ca861ab7b3b"
+  shopify_secret: "8bd4a9884d30e702d50e2b7224b35808"
+  ups_user_id: 'jnatowitz@lapineinc.com'
+  ups_password: 'P444word!'
+  ups_key: 'ACD8A71E16D5BA35'
+  app_url: 'http://shopify-bulk-order-staging.herokuapp.com'

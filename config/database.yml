@@ -1,0 +1,24 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  username:
+  password:
+  prepared_statements: false
+
+development:
+  <<: *default
+  database: custom-shipping-rate_development
+
+test:
+  <<: *default
+  database: custom-shipping-rate_test
+
+staging:
+  <<: *default
+  database: custom-shipping-rate_staging
+
+production:
+  <<: *default
+  database: custom-shipping-rate_production
+

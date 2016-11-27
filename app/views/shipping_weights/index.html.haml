@@ -1,0 +1,30 @@
+%h2#fix Shipping
+%hr/
+#datasheet.hot.handsontable.htRowHeaders.htColumnHeaders{:style => ""}
+%h4  
+.row
+  //.col-md-2.col-sm-3.col-xs-6
+  //  %button#export-string.btn.gray-bg.intext-btn{:type => "button"} SAVE CHANGES
+  .col-md-3.col-sm-4.col-xs-6
+    %button.btn.gray-bg{"data-target" => "#csv-upload", "data-toggle" => "collapse"} UPLOAD SHIPMENT FILE
+  .col-md-2.col-sm-3.col-xs-6
+    %a.btn.btn-primary{:href => "#"}
+      Next Page  
+      %i.fa.fa-caret-right
+%h2  
+#csv-upload.collapse
+  %form{:id => "shipping-upload-frm", :action => upload_location_shipping_weights_path, :method => "post", :role => "form", :enctype => "multipart/form-data" }
+    .form-group
+      .col-md-12
+        .col-md-4
+          %label{:for => "concentrations"}
+            %strong Bulk Location file Upload
+          %input#csv_upload_txt.upload-change.form-control{:disabled => "disabled", :placeholder => "No file Selected...", :type => "text"}/
+          %span.w3-tiny.pull-right (Supported format: csv, xls, xlsx)
+          %h6
+        .col-md-2.col-sm-3.col-xs-4
+          %p{:style => "font-size:1px;"}  
+          %input#csv_upload.form-control{:accept => ".csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", :name => "csv_upload", :style => "opacity:0; height:0px;", :type => "file"}/
+          %input.form-control{:id => "shipping-file-upload", :onclick => "this.previousElementSibling.click();", :style => "display:inline;", :type => "button", :value => "Upload"}/
+          = hidden_field_tag :authenticity_token, form_authenticity_token
+%br
