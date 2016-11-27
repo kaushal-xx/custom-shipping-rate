@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
   root :to => 'home#index'
   mount ShopifyApp::Engine, at: '/'
-  get 'shipping_cal' => "home#shipping_cal"
-  post 'shipping_cal' => "home#shipping_cal"
+  get 'shipping_cal' => "shipping_weights#shipping_cal"
+  post 'shipping_cal' => "shipping_weights#shipping_cal"
 
   devise_for :users
 
