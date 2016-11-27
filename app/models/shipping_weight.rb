@@ -10,6 +10,7 @@ class ShippingWeight < ApplicationRecord
 		if weight > 149.00 && weight < 150.00
 			weight = 150.00
 	    end
+	    return 0.0 if weight == 0.0
 		if weight < 150
 			origin_details = {country: origin_address['country'], province: origin_address['province'], city: origin_address['city'], zip: origin_address['postal_code']}
 			destination_details = {country: destination_address['country'], province: destination_address['province'], city: destination_address['city'], zip: destination_address['postal_code']}
