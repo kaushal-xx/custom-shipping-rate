@@ -1,4 +1,6 @@
 class ShippingWeightsController < ApplicationController
+  before_action :authenticate_user!, except: [:index]
+  skip_before_filter :verify_authenticity_token, :only => [:upload_location]
   before_action :set_shipping_weight, only: [:show, :edit, :update, :destroy]
   before_action :set_shipping_weight_state_weight, only: [:update_sheet]
 
@@ -15,7 +17,7 @@ class ShippingWeightsController < ApplicationController
   end
 
   def upload_location
-    ShippingWeight.import(params[:csv_upload])
+    ShippingWeight.import(params[:file])
     respond_to do |format|
       format.html { redirect_to shipping_weights_url}
       format.json { head :no_content }
