@@ -13,8 +13,8 @@ class ShippingWeight < ApplicationRecord
 		if weight > 149.00 && weight < 150.00
 			weight = 150.00
 	    end
-	    puts destination_address
-	    puts origin_address
+	    Rails.logger.info destination_address
+	    Rails.logger.info origin_address
 		if total_weight_in_ib < 150
 			origin_details = {country: origin_address['country'], province: origin_address['province'], city: origin_address['city'], zip: origin_address['postal_code']}
 			destination_details = {country: destination_address['country'], province: destination_address['province'], city: destination_address['city'], zip: destination_address['postal_code']}
@@ -27,7 +27,7 @@ class ShippingWeight < ApplicationRecord
 	        	available_prices << shipping_obj.price.to_f
 	        end
 	    end
-	    puts available_shipping
+	    Rails.logger.info available_shipping
 		if available_shipping.blank?
 			return 'Error'
 		else
