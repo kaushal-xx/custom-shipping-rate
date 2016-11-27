@@ -1,6 +1,6 @@
 class ShippingWeightsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :shipping_cal]
-  skip_before_filter :verify_authenticity_token, :only => [:upload_location]
+  skip_before_filter :verify_authenticity_token, :only => [:upload_location, :shipping_cal]
   before_action :set_shipping_weight, only: [:show, :edit, :update, :destroy]
   before_action :set_shipping_weight_state_weight, only: [:update_sheet]
 
