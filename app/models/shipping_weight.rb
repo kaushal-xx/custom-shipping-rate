@@ -5,10 +5,10 @@ class ShippingWeight < ApplicationRecord
 		weight = base_weight.to_f
 		available_prices = []
 		available_shipping = false
-		origin_address = params[:rate][:origin]
-		destination_address = params[:rate][:destination]
-		items = params[:rate][:items]
-		total_weight = items.map{|s| s[:grams] * s[:quantity]}.sum
+		origin_address = params['rate']['origin']
+		destination_address = params['rate']['destination']
+		items = params['rate']['items']
+		total_weight = items.map{|s| s['grams'] * s['quantity']}.sum
 		total_weight_in_ib = '%.2f' % (total_weight*0.0022)
 		if weight > 149.00 && weight < 150.00
 			weight = 150.00
@@ -16,13 +16,13 @@ class ShippingWeight < ApplicationRecord
 	    puts destination_address
 	    puts origin_address
 		if total_weight_in_ib < 150
-			origin_details = {country: origin_address[:country], province: origin_address[:province], city: origin_address[:city], zip: origin_address[:postal_code]}
-			destination_details = {country: destination_address[:country], province: destination_address[:province], city: destination_address[:city], zip: destination_address[:postal_code]}
+			origin_details = {country: origin_address['country'], province: origin_address['province'], city: origin_address['city'], zip: origin_address['postal_code']}
+			destination_details = {country: destination_address['country'], province: destination_address['province'], city: destination_address['city'], zip: destination_address['postal_code']}
 			ups_rates = get_ups_shipping_rate(weight, origin_details, destination_details)
 			available_option = ups_rates.select{|k| k.first==shipping_type}.first
 			available_prices << ('%.2f' % (available_option.last.to_f/100)) if available_option.present?
 	    else
-	        shipping_obj = get_shipping_rate(weight, destination_address[:country], destination_address[:province])
+	        shipping_obj = get_shipping_rate(weight, destination_address['country'], destination_address['province'])
 	        if shipping_obj.present?
 	        	available_prices << shipping_obj.price.to_f
 	        end
