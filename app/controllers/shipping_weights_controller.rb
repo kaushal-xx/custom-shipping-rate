@@ -44,14 +44,18 @@ class ShippingWeightsController < ApplicationController
     errors = ShippingWeight.valid_params(params)
     data = {}
     if errors.blank?
-      shipping_price = ShippingWeight.get_price_for_api(params['from_address'], params['to_address'], params['total_weight'])
-      Rails.logger.info "*************************"
-      puts shipping_price
-      Rails.logger.info "*************************"
-      if shipping_price.to_f > 0.0
-        data = { rates: { total_price: shipping_price.to_f*100, currency: "USD"} }
-      else
-        data = {errors: ["Shipping rate can't calculate."]}
+      begin
+        shipping_price = ShippingWeight.get_price_for_api(params['from_address'], params['to_address'], params['total_weight'])
+        Rails.logger.info "*************************"
+        puts shipping_price
+        Rails.logger.info "*************************"
+        if shipping_price.to_f > 0.0
+          data = { rates: { total_price: shipping_price.to_f*100, currency: "USD"} }
+        else
+          data = {errors: ["Shipping rate can't calculate."]}
+        end
+      rescue Exception => e
+        data = { errors: e }
       end
     else
       data = { errors: errors }
