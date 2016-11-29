@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   mount ShopifyApp::Engine, at: '/'
   get 'shipping_cal' => "shipping_weights#shipping_cal"
   post 'shipping_cal' => "shipping_weights#shipping_cal"
+  get 'rates' => "shipping_weights#rates"
+  post 'rates' => "shipping_weights#rates"
 
   devise_for :users
 

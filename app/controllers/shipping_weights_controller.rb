@@ -1,5 +1,5 @@
 class ShippingWeightsController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :shipping_cal]
+  before_action :authenticate_user!, except: [:index, :shipping_cal, :rates]
   skip_before_filter :verify_authenticity_token, :only => [:upload_location, :shipping_cal]
   before_action :set_shipping_weight, only: [:show, :edit, :update, :destroy]
   before_action :set_shipping_weight_state_weight, only: [:update_sheet]
@@ -36,6 +36,25 @@ class ShippingWeightsController < ApplicationController
         }
     else
       data = {}
+    end
+    render json: data
+  end
+
+  def rates
+    errors = ShippingWeight.valid_params(params)
+    data = {}
+    if errors.blank?
+      shipping_price = ShippingWeight.get_price_for_api(params['from_address'], params['to_address'], params['total_weight'])
+      Rails.logger.info "*************************"
+      puts shipping_price
+      Rails.logger.info "*************************"
+      if shipping_price.to_f > 0.0
+        data = { rates: { total_price: shipping_price.to_f*100, currency: "USD"} }
+      else
+        data = {errors: ["Shipping rate can't calculate."]}
+      end
+    else
+      data = { errors: errors }
     end
     render json: data
   end

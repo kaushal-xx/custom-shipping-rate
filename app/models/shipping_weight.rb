@@ -26,6 +26,72 @@ class ShippingWeight < ApplicationRecord
 		return (available_prices.blank? ? 'Not found' : available_prices.min)
 	end
 
+	def self.get_price_for_api(from_address, to_address, total_weight)
+		available_prices = []
+		origin_address = from_address
+		destination_address = to_address
+		weight = ('%.2f' % (total_weight*0.0022)).to_f
+		if weight > 149.00 && weight < 150.00
+			weight = 150.00
+	    end
+	    return 0.0 if weight == 0.0
+		if weight < 150
+			origin_details = {country: origin_address['country'], province: origin_address['province'], city: origin_address['city'], zip: origin_address['postal_code']}
+			destination_details = {country: destination_address['country'], province: destination_address['province'], city: destination_address['city'], zip: destination_address['postal_code']}
+			ups_rates = get_ups_shipping_rate(weight, origin_details, destination_details)
+			available_option = ups_rates.select{|k| k.first=='UPS Ground'}.first
+			available_prices << ('%.2f' % (available_option.last.to_f/100)) if available_option.present?
+	    else
+	        shipping_obj = get_shipping_rate(weight, destination_address['country'], destination_address['province'])
+	        if shipping_obj.present?
+	        	available_prices << shipping_obj.price.to_f
+	        end
+	    end
+		return (available_prices.blank? ? 'Not found' : available_prices.min)
+	end
+
+	def self.valid_params(params)
+		errors = []
+		if params['from_address'].blank?
+			errors << "From Address can't be blank."
+		else
+			if params['from_address']['country'].blank?
+				errors << "Country can't be blank."
+			end
+			if params['from_address']['province'].blank?
+				errors << "Province can't be blank."
+			end
+			if params['from_address']['city'].blank?
+				errors << "City can't be blank."
+			end
+			if params['from_address']['postal_code'].blank?
+				errors << "Postal code can't be blank."
+			end
+		end
+		if params['to_address'].blank?
+			errors << "From Address can't be blank."
+		else
+			if params['to_address']['country'].blank?
+				errors << "Country can't be blank."
+			end
+			if params['to_address']['province'].blank?
+				errors << "Province can't be blank."
+			end
+			if params['to_address']['city'].blank?
+				errors << "City can't be blank."
+			end
+			if params['to_address']['postal_code'].blank?
+				errors << "Postal code can't be blank."
+			end
+		end
+		if params['total_weight'].blank?
+			errors << "Total weight can't be blank."
+		elsif params['total_weight'].to_f <= 0.0
+			errors << "Total weight can't less then and equal to zero."
+	    end
+		errors
+	end
+
 	def self.get_shipping_rate(weight, country, state)
 		weights = ShippingWeight.where("country = ? and state = ?", country, state).order("weight")
 		if weights.present?
