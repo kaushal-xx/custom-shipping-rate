@@ -1,53 +1,76 @@
 class ShippingWeight < ApplicationRecord
 
-	def self.get_price(params)
+	def self.get_price(params, ups_rate = false)
 		available_prices = []
 		origin_address = params['rate']['origin']
 		destination_address = params['rate']['destination']
 		items = params['rate']['items']
 		total_weight = items.map{|s| s['grams'] * s['quantity']}.sum
-		weight = ('%.2f' % (total_weight*0.0022)).to_f
-		if weight > 149.00 && weight < 150.00
+		product_weight = ('%.2f' % (total_weight*0.0022)).to_f
+		weight_type = ''
+		if product_weight > 149.00 && product_weight < 150.00
 			weight = 150.00
+		else
+			weight = product_weight
 	    end
-	    return 0.0 if weight == 0.0
-		if weight < 150
-			origin_details = {country: origin_address['country'], province: origin_address['province'], city: origin_address['city'], zip: origin_address['postal_code']}
-			destination_details = {country: destination_address['country'], province: destination_address['province'], city: destination_address['city'], zip: destination_address['postal_code']}
-			ups_rates = get_ups_shipping_rate(weight, origin_details, destination_details)
-			available_option = ups_rates.select{|k| k.first=='UPS Ground'}.first
-			available_prices << ('%.2f' % (available_option.last.to_f/100)) if available_option.present?
-	    else
-	        shipping_obj = get_shipping_rate(weight, destination_address['country'], destination_address['province'])
-	        if shipping_obj.present?
-	        	available_prices << shipping_obj.price.to_f
-	        end
-	    end
-		return (available_prices.blank? ? 'Not found' : available_prices.min)
+	    if weight > 0.0
+			if weight < 150
+		        shipping_obj = get_light_weight_shipping_rate(weight, destination_address['country'], destination_address['province'])
+		        if shipping_obj.present?
+		        	available_prices << shipping_obj.price.to_f
+		        	weight_type = 'Light Weight'
+		        end			
+		        if ups_rate && available_prices.blank?
+					origin_details = {country: origin_address['country'], province: origin_address['province'], city: origin_address['city'], zip: origin_address['postal_code']}
+					destination_details = {country: destination_address['country'], province: destination_address['province'], city: destination_address['city'], zip: destination_address['postal_code']}
+					ups_rates = get_ups_shipping_rate(weight, origin_details, destination_details)
+					available_option = ups_rates.select{|k| k.first=='UPS Ground'}.first
+					available_prices << ('%.2f' % (available_option.last.to_f/100)) if available_option.present?
+					weight_type = 'UPS Weight'
+				end
+		    else
+		        shipping_obj = get_shipping_rate(weight, destination_address['country'], destination_address['province'])
+		        if shipping_obj.present?
+		        	available_prices << shipping_obj.price.to_f
+		        	weight_type = 'Heavy Weight'
+		        end
+		    end
+		end
+		return (available_prices.blank? ? [weight_type, 'Not found'] : [weight_type, available_prices.min])
 	end
 
 	def self.get_price_for_api(from_address, to_address, total_weight)
 		available_prices = []
 		origin_address = from_address
 		destination_address = to_address
+		weight_type = ''
 		weight = ('%.2f' % (total_weight*0.0022)).to_f
 		if weight > 149.00 && weight < 150.00
 			weight = 150.00
 	    end
 	    return 0.0 if weight == 0.0
 		if weight < 150
-			origin_details = {country: origin_address['country'], province: origin_address['province'], city: origin_address['city'], zip: origin_address['postal_code']}
-			destination_details = {country: destination_address['country'], province: destination_address['province'], city: destination_address['city'], zip: destination_address['postal_code']}
-			ups_rates = get_ups_shipping_rate(weight, origin_details, destination_details)
-			available_option = ups_rates.select{|k| k.first=='UPS Ground'}.first
-			available_prices << ('%.2f' % (available_option.last.to_f/100)) if available_option.present?
+	        shipping_obj = get_light_weight_shipping_rate(weight, destination_address['country'], destination_address['province'])
+	        if shipping_obj.present?
+	        	available_prices << shipping_obj.price.to_f
+	        	weight_type = 'Light Weight'
+	        end
+	        if available_prices.blank?
+				origin_details = {country: origin_address['country'], province: origin_address['province'], city: origin_address['city'], zip: origin_address['postal_code']}
+				destination_details = {country: destination_address['country'], province: destination_address['province'], city: destination_address['city'], zip: destination_address['postal_code']}
+				ups_rates = get_ups_shipping_rate(weight, origin_details, destination_details)
+				available_option = ups_rates.select{|k| k.first=='UPS Ground'}.first
+				available_prices << ('%.2f' % (available_option.last.to_f/100)) if available_option.present?
+				weight_type = 'UPS Weight'
+			end
 	    else
 	        shipping_obj = get_shipping_rate(weight, destination_address['country'], destination_address['province'])
 	        if shipping_obj.present?
 	        	available_prices << shipping_obj.price.to_f
+	        	weight_type = 'Heavy Weight'
 	        end
 	    end
-		return (available_prices.blank? ? 'Not found' : available_prices.min)
+		return (available_prices.blank? ? [weight_type, 'Not found'] : [weight_type, available_prices.min])
 	end
 
 	def self.valid_params(params)
@@ -98,6 +121,24 @@ class ShippingWeight < ApplicationRecord
 			if weights.last.weight >= weight
 				weights.select{|s| s.weight <= weight}.last
 			end
+		end
+	end
+
+	def self.get_light_weight_shipping_rate(weight, country, state)
+	    if weight <= light_weight_limit
+			weights = ShippingWeight.where("country = ? and state = ?", country, state).order("weight")
+			if weights.present?
+				if weights.last.weight >= weight
+					weights.select{|s| s.weight <= weight}.last
+				end
+			end
+		end
+	end
+
+	def light_weight_limit(max_limit = 150)
+		weight_obj = ShippingWeight.where("weight < ?", max_limit).order("weight").last
+		if weight_obj.present?
+			weight_obj.weight
 		end
 	end
 

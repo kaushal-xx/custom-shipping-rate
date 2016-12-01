@@ -21,14 +21,14 @@ class ShippingWeightsController < ApplicationController
     Rails.logger.info "*************************"
     puts shipping_price
     Rails.logger.info "*************************"
-    if shipping_price.to_f > 0.0
+    if shipping_price.last.to_f > 0.0
       data = {
           "rates" => [
 
                {
-                   "service_name" => "Shipping + Handling",
+                   "service_name" => "Shipping #{shipping_price.first}",
                    "service_code" => "ON",
-                   "total_price" => shipping_price.to_f*100,
+                   "total_price" => shipping_price.last.to_f*100,
                    "description" => "Select this option for all orders",
                    "currency" => "USD"
                }
@@ -49,8 +49,8 @@ class ShippingWeightsController < ApplicationController
         Rails.logger.info "*************************"
         puts shipping_price
         Rails.logger.info "*************************"
-        if shipping_price.to_f > 0.0
-          data = { rates: { total_price: shipping_price.to_f*100, currency: "USD"} }
+        if shipping_price.last.to_f > 0.0
+          data = { rates: { total_price: shipping_price.last.to_f*100, currency: "USD", shipping_type: "Shipping #{shipping_price.first}"} }
         else
           data = {errors: ["Shipping rate can't calculate."]}
         end
