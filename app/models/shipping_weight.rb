@@ -135,7 +135,7 @@ class ShippingWeight < ApplicationRecord
 		end
 	end
 
-	def light_weight_limit(max_limit = 150)
+	def self.light_weight_limit(max_limit = 150)
 		weight_obj = ShippingWeight.where("weight < ?", max_limit).order("weight").last
 		if weight_obj.present?
 			weight_obj.weight
