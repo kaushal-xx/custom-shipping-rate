@@ -44,7 +44,7 @@ class ShippingWeight < ApplicationRecord
 		origin_address = from_address
 		destination_address = to_address
 		weight_type = ''
-		weight = ('%.2f' % (total_weight*0.0022)).to_f
+		weight = ('%.2f' % (total_weight)).to_f
 		if weight > 149.00 && weight < 150.00
 			weight = 150.00
 	    end
