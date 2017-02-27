@@ -17,7 +17,7 @@ class ShippingWeightsController < ApplicationController
   end
 
   def shipping_cal
-    shipping_price = ShippingWeight.get_price(params)
+    shipping_price = ShippingWeight.get_price(params, true)
     Rails.logger.info "*************************"
     puts shipping_price
     Rails.logger.info "*************************"
@@ -45,7 +45,7 @@ class ShippingWeightsController < ApplicationController
     data = {}
     if errors.blank?
       begin
-        shipping_price = ShippingWeight.get_price_for_api(params['from_address'], params['to_address'], params['total_weight'])
+        shipping_price = ShippingWeight.get_price_for_api(params['from_address'], params['to_address'], params['total_weight'], true)
         Rails.logger.info "*************************"
         puts shipping_price
         Rails.logger.info "*************************"
