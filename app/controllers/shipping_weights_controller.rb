@@ -22,13 +22,14 @@ class ShippingWeightsController < ApplicationController
     puts shipping_price
     Rails.logger.info "*************************"
     if shipping_price.last.to_f > 0.0
+      shipping_rate = shipping_price.last.to_f + 5.00
       data = {
           "rates" => [
 
                {
                    "service_name" => "#{shipping_price.first}",
                    "service_code" => "ON",
-                   "total_price" => shipping_price.last.to_f*100,
+                   "total_price" => shipping_rate*100,
                    "description" => "Select this option for all orders",
                    "currency" => "USD"
                }
