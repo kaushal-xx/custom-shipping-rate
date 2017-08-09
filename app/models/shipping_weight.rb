@@ -15,18 +15,19 @@ class ShippingWeight < ApplicationRecord
 	    end
 	    if weight > 0.0
 			if weight < 150
-		        shipping_obj = get_light_weight_shipping_rate(weight, destination_address['country'], destination_address['province'])
-		        if shipping_obj.present?
-		        	available_prices << shipping_obj.price.to_f
-		        	weight_type = 'Shipping Light Weight'
-		        end			
-		        if ups_rate && available_prices.blank?
+				if weight > light_weight_limit && ups_rate
 					origin_details = {country: origin_address['country'], province: origin_address['province'], city: origin_address['city'], zip: origin_address['postal_code']}
 					destination_details = {country: destination_address['country'], province: destination_address['province'], city: destination_address['city'], zip: destination_address['postal_code']}
 					ups_rates = get_ups_shipping_rate(weight, origin_details, destination_details)
 					available_option = ups_rates.select{|k| k.first=='UPS Ground'}.first
 					available_prices << ('%.2f' % (available_option.last.to_f/100)) if available_option.present?
 					weight_type = 'UPS Ground'
+				else
+			        shipping_obj = get_light_weight_shipping_rate(weight, destination_address['country'], destination_address['province'])
+			        if shipping_obj.present?
+			        	available_prices << shipping_obj.price.to_f
+			        	weight_type = 'Shipping Light Weight'
+			        end		
 				end
 		    else
 		        shipping_obj = get_shipping_rate(weight, destination_address['country'], destination_address['province'])
@@ -128,14 +129,10 @@ class ShippingWeight < ApplicationRecord
 	def self.get_light_weight_shipping_rate(weight, country, state)
 	    if weight <= light_weight_limit
 			weights = ShippingWeight.where("country = ? and state = ? and weight <= ?", country, state, weight).order("weight")
-			if weights.blank?
-				weights = ShippingWeight.where("country = ? and state = ? and weight <= ?", country, state, light_weight_limit).order("weight")
-				weight = light_weight_limit
-			end
 			if weights.present?
-				if weights.last.weight >= weight
-					weights.select{|s| s.weight <= weight}.last
-				end
+				weights.last
+			else
+			    ShippingWeight.where("country = ? and state = ?", country, state).order("weight").first
 			end
 		end
 	end
