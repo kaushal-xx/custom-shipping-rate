@@ -45,6 +45,7 @@ gem 'omniauth-oauth2', '~> 1.2.0'
 gem 'haml-rails'
 gem "html2haml"
 gem 'devise'
+gem 'newrelic_rpm'
 
 # For xls/xlsx/csv upload
 gem 'roo'
