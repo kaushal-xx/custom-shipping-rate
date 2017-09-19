@@ -16,12 +16,11 @@ class ShippingWeight < ApplicationRecord
 	    if weight > 0.0
 			if weight < 150
 				if weight > light_weight_limit && ups_rate
-					origin_details = {country: origin_address['country'], province: origin_address['province'], city: origin_address['city'], zip: origin_address['postal_code']}
-					destination_details = {country: destination_address['country'], province: destination_address['province'], city: destination_address['city'], zip: destination_address['postal_code']}
-					ups_rates = get_ups_shipping_rate(weight, origin_details, destination_details)
-					available_option = ups_rates.select{|k| k.first=='UPS Ground'}.first
-					available_prices << ('%.2f' % (available_option.last.to_f/100)) if available_option.present?
-					weight_type = 'Standard Ground'
+					ups_price = get_ups_ground_rate(params)
+					if ups_price.present?
+						available_prices << ups_price
+						weight_type = 'Standard Ground'
+					end
 				else
 			        shipping_obj = get_light_weight_shipping_rate(weight, destination_address['country'], destination_address['province'])
 			        if shipping_obj.present?
@@ -38,6 +37,48 @@ class ShippingWeight < ApplicationRecord
 		    end
 		end
 		return (available_prices.blank? ? [weight_type, 'Not found'] : [weight_type, available_prices.min])
+	end
+
+	def self.get_ups_rates(params)
+		origin_address = params['rate']['origin']
+		destination_address = params['rate']['destination']
+		total_weight = params['rate']['items'].map{|s| s['grams'] * s['quantity']}.sum
+		weight = ('%.2f' % (total_weight*0.0022)).to_f
+		origin_details = {country: origin_address['country'], province: origin_address['province'], city: origin_address['city'], zip: origin_address['postal_code']}
+		destination_details = {country: destination_address['country'], province: destination_address['province'], city: destination_address['city'], zip: destination_address['postal_code']}
+		get_ups_shipping_rate(weight, origin_details, destination_details)
+	end
+
+	def self.get_ups_second_day_rate(params)
+		ups_rates = @usp_response || get_ups_rates(params)
+		if ups_rates.present?
+			available_option = ups_rates.select{|k| k.first=='UPS Second Day Air'}.first
+			 if available_option.present?
+			 	'%.2f' % (available_option.last.to_f/100)
+			end
+		end
+	end
+
+	def self.get_ups_ground_rate(params)
+		ups_rates = @usp_response || get_ups_rates(params)
+		if ups_rates.present?
+			available_option = ups_rates.select{|k| k.first=='UPS Ground'}.first
+			 if available_option.present?
+			 	'%.2f' % (available_option.last.to_f/100)
+			end
+		end
+	end
+
+	def self.ups_shipping_label(params)
+		total_weight = params['rate']['items'].map{|s| s['grams'] * s['quantity']}.sum
+		weight = ('%.2f' % (total_weight*0.0022)).to_f
+		if light_weight_limit > weight
+			'Light Weight Expedited'
+		elsif light_weight_limit <= weight && weight < 150
+			'Standard Ground Expedited'
+		elsif weight >= 150
+			'Heavy Weight Expedited'
+		end
 	end
 
 	def self.get_price_for_api(from_address, to_address, total_weight, ups_rate = false)
@@ -59,7 +100,7 @@ class ShippingWeight < ApplicationRecord
 		        if ups_rate && available_prices.blank?
 					origin_details = {country: origin_address['country'], province: origin_address['province'], city: origin_address['city'], zip: origin_address['postal_code']}
 					destination_details = {country: destination_address['country'], province: destination_address['province'], city: destination_address['city'], zip: destination_address['postal_code']}
-					ups_rates = get_ups_shipping_rate(weight, origin_details, destination_details)
+					ups_rates = ShippingWeight.get_ups_shipping_rate(weight, origin_details, destination_details)
 					available_option = ups_rates.select{|k| k.first=='UPS Ground'}.first
 					available_prices << ('%.2f' % (available_option.last.to_f/100)) if available_option.present?
 					weight_type = 'Standard Ground'
@@ -149,8 +190,8 @@ class ShippingWeight < ApplicationRecord
 		origin = ActiveShipping::Location.new(origin_details)
 		destination = ActiveShipping::Location.new(destination_details)
 		ups = ActiveShipping::UPS.new(login: ENV["ups_user_id"], password: ENV["ups_password"], key: ENV["ups_key"])
-		response = ups.find_rates(origin, destination, packages)
-		response.rates.sort_by(&:price).collect {|rate| [rate.service_name, rate.price]}
+		@usp_response = ups.find_rates(origin, destination, packages)
+		@usp_response.rates.sort_by(&:price).collect {|rate| [rate.service_name, rate.price]}
 	end
 
 	def self.import(file)
