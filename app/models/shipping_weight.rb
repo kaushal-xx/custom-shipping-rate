@@ -191,7 +191,7 @@ class ShippingWeight < ApplicationRecord
 		destination = ActiveShipping::Location.new(destination_details)
 		ups = ActiveShipping::UPS.new(login: ENV["ups_user_id"], password: ENV["ups_password"], key: ENV["ups_key"])
 		response = ups.find_rates(origin, destination, packages)
-		@usp_response = response.rates.sort_by(&:price).collect {|rate| [rate.service_name, rate.price]}
+		response.rates.sort_by(&:price).collect {|rate| [rate.service_name, rate.price]}
 	end
 
 	def self.import(file)
