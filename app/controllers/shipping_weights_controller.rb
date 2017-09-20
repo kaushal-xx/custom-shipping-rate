@@ -40,7 +40,7 @@ class ShippingWeightsController < ApplicationController
           data['rates'] << {
             "service_name" => ShippingWeight.ups_shipping_label(params),
             "service_code" => "ON",
-            "total_price" => ups_second_day.to_f*100,
+            "total_price" => (ups_second_day.to_f+ 5.00)*100,
             "description" => "Select this option for all orders",
             "currency" => "USD"
           }
