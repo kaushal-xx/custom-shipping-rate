@@ -9,7 +9,7 @@ class HomeController < ShopifyApp::AuthenticatedController
     if cs.blank?
       ss =  ShopifyAPI::CarrierService.new()
       ss.name = "Shipping Custom Rate"
-      ss.callback_url = "https://custom-shipping-rate.herokuapp.com/shipping_cal"
+      ss.callback_url = "https://shipping-custom-rate.herokuapp.com/shipping_cal"
       ss.service_discovery = true
       ss.save
     end
