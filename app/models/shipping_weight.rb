@@ -186,12 +186,18 @@ class ShippingWeight < ApplicationRecord
 	end
 
 	def self.get_ups_shipping_rate(weight, origin_details, destination_details)
-		packages = [ActiveShipping::Package.new(weight*16.1,[12, 8.75, 6], units: :imperial)]
-		origin = ActiveShipping::Location.new(origin_details)
-		destination = ActiveShipping::Location.new(destination_details)
-		ups = ActiveShipping::UPS.new(login: ENV["ups_user_id"], password: ENV["ups_password"], key: ENV["ups_key"])
-		response = ups.find_rates(origin, destination, packages)
-		response.rates.sort_by(&:price).collect {|rate| [rate.service_name, rate.price]}
+		begin
+			packages = [ActiveShipping::Package.new(weight*16.1,[12, 8.75, 6], units: :imperial)]
+			origin = ActiveShipping::Location.new(origin_details)
+			destination = ActiveShipping::Location.new(destination_details)
+			ups = ActiveShipping::UPS.new(login: ENV["ups_user_id"], password: ENV["ups_password"], key: ENV["ups_key"])
+			response = ups.find_rates(origin, destination, packages)
+			response.rates.sort_by(&:price).collect {|rate| [rate.service_name, rate.price]}
+		rescue Exception => e
+			puts "**************Errors**************"
+			puts e.message
+			{}
+		end
 	end
 
 	def self.import(file)
