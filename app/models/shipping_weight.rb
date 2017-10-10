@@ -19,7 +19,7 @@ class ShippingWeight < ApplicationRecord
 					ups_price = get_ups_ground_rate(params)
 					if ups_price.present?
 						available_prices << ups_price
-						weight_type = 'Standard Ground'
+						weight_type = 'UPS Ground'
 					end
 				else
 			        shipping_obj = get_light_weight_shipping_rate(weight, destination_address['country'], destination_address['province'])
@@ -32,7 +32,7 @@ class ShippingWeight < ApplicationRecord
 		        shipping_obj = get_shipping_rate(weight, destination_address['country'], destination_address['province'])
 		        if shipping_obj.present?
 		        	available_prices << shipping_obj.price.to_f
-		        	weight_type = 'Heavy Weight'
+		        	weight_type = 'Truck Delivery'
 		        end
 		    end
 		end
