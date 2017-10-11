@@ -19,20 +19,20 @@ class ShippingWeight < ApplicationRecord
 					ups_price = get_ups_ground_rate(params)
 					if ups_price.present?
 						available_prices << ups_price
-						weight_type = 'UPS Ground'
+						weight_type = shipping_label_with_country(destination_address['country'], 'UPS Ground')
 					end
 				else
 			        shipping_obj = get_light_weight_shipping_rate(weight, destination_address['country'], destination_address['province'])
 			        if shipping_obj.present?
 			        	available_prices << shipping_obj.price.to_f
-			        	weight_type = 'Light Weight'
+			        	weight_type = shipping_label_with_country(destination_address['country'], 'Light Weight')
 			        end		
 				end
 		    else
 		        shipping_obj = get_shipping_rate(weight, destination_address['country'], destination_address['province'])
 		        if shipping_obj.present?
 		        	available_prices << shipping_obj.price.to_f
-		        	weight_type = 'Truck Delivery'
+		        	weight_type = shipping_label_with_country(destination_address['country'], 'Truck Delivery')
 		        end
 		    end
 		end
@@ -223,5 +223,9 @@ class ShippingWeight < ApplicationRecord
 	end
 	def self.delete_all_records
 		ShippingWeight.delete_all 	
+	end
+
+	def self.shipping_label_with_country(country, label)
+		country.downcase == 'ca' ? "Canada #{label}" : label
 	end
 end
