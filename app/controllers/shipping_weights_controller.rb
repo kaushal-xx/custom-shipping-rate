@@ -38,7 +38,7 @@ class ShippingWeightsController < ApplicationController
         ups_second_day = ShippingWeight.get_ups_second_day_rate(params)
         if ups_second_day.present?
           data['rates'] << {
-            "service_name" => ShippingWeight.ups_shipping_label(params),
+            "service_name" => 'UPS Second Day Air',
             "service_code" => "ON",
             "total_price" => (ups_second_day.to_f+ 5.00)*100,
             "description" => "Select this option for all orders",
