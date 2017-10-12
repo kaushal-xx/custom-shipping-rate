@@ -1,14 +1,14 @@
 development:
-  shopify_api_key: "c67c6718da87efdf792547a6bb83a3c7"
-  shopify_secret: "046a6fc5252d1d85602eea6d1aac558f"
+  shopify_api_key: "499a3cf2d0ae935f97b0802e7080ac6a"
+  shopify_secret: "22f8a9dc6c9ca1bae955c291ddbbadbc"
   ups_user_id: 'jnatowitz@lapineinc.com'
   ups_password: 'P444word!'
   ups_key: 'ACD8A71E16D5BA35'
   app_url: 'http://localhost:3000'
 production:
-  shopify_api_key: "4393c03590f3a8dc404a6273f28fdbd2"
-  shopify_secret: "9065833bc26c9b35bb6eea1f2efadf33"
+  shopify_api_key: "499a3cf2d0ae935f97b0802e7080ac6a"
+  shopify_secret: "22f8a9dc6c9ca1bae955c291ddbbadbc"
   ups_user_id: 'jnatowitz@lapineinc.com'
   ups_password: 'P444word!'
   ups_key: 'ACD8A71E16D5BA35'
-  app_url: 'http://shopify-bulk-order-staging.herokuapp.com'
+  app_url: 'https://customshippingapp.com/'

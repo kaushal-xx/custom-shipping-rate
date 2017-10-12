@@ -60,6 +60,7 @@ group :development, :test do
   gem 'capistrano-bundler', require: false
   gem 'capistrano-rvm'
   gem 'capistrano-sidekiq', github: 'seuros/capistrano-sidekiq'
+  gem 'sshkit-sudo'
 end
 
 group :development do

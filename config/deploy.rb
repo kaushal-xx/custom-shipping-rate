@@ -1,6 +1,5 @@
 # config valid only for current version of Capistrano
 
-lock "3.7.1"
 server '34.210.189.85', user: 'deployer', roles: %w{web app db}
 
 set :application, "master-aws"
@@ -39,7 +38,7 @@ namespace :puma do
     end
   end
 
-  before :start, :make_dirs
+  # before :start, :make_dirs
 end
 
 namespace :deploy do
