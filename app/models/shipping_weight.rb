@@ -163,6 +163,8 @@ class ShippingWeight < ApplicationRecord
 		if weights.present?
 			if weights.last.weight >= weight
 				weights.select{|s| s.weight <= weight}.last
+			else
+				weights.last
 			end
 		end
 	end
