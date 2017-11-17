@@ -62,7 +62,7 @@ class ShippingWeight < ApplicationRecord
 	def self.get_ups_ground_rate(params)
 		ups_rates = @usp_response || get_ups_rates(params)
 		if ups_rates.present?
-			available_option = ups_rates.select{|k| k.first=='UPS Ground'}.first
+			available_option = ups_rates.select{|k| k.first=='UPS Ground' || k.first=='UPS Standard'}.first
 			 if available_option.present?
 			 	'%.2f' % (available_option.last.to_f/100)
 			end
