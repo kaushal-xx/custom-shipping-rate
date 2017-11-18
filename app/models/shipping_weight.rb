@@ -189,6 +189,8 @@ class ShippingWeight < ApplicationRecord
         end
         if weight_obj.present?
             weight_obj.weight
+        else
+            0
         end
     end
 
