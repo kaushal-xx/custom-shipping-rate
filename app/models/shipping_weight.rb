@@ -52,7 +52,7 @@ class ShippingWeight < ApplicationRecord
     def self.get_ups_second_day_rate(params)
         ups_rates = @usp_response || get_ups_rates(params)
         if ups_rates.present?
-            available_option = ups_rates.select{|k| k.first=='UPS Second Day Air'}.first
+            available_option = ups_rates.select{|k| k.first=='UPS Second Day Air' || k.first == 'UPS Worldwide Expedited'}.first
              if available_option.present?
                 '%.2f' % (available_option.last.to_f/100)
             end
@@ -87,6 +87,7 @@ class ShippingWeight < ApplicationRecord
         origin_address = from_address
         destination_address = to_address
         weight_type = ''
+        data = []
         weight = ('%.2f' % (total_weight)).to_f
         if weight > 149.00 && weight < 150.00
             weight = 150.00
@@ -97,14 +98,18 @@ class ShippingWeight < ApplicationRecord
                 if shipping_obj.present?
                     available_prices << shipping_obj.price.to_f
                     weight_type = 'Light Weight'
+                    data << { total_price: (available_prices.min.to_f+ 8.00), currency: "USD", shipping_type: 'Light Weight'}
                 end
-                if ups_rate && available_prices.blank?
+                if ups_rate
                     origin_details = {country: origin_address['country'], province: origin_address['province'], city: origin_address['city'], zip: origin_address['postal_code']}
                     destination_details = {country: destination_address['country'], province: destination_address['province'], city: destination_address['city'], zip: destination_address['postal_code']}
                     ups_rates = ShippingWeight.get_ups_shipping_rate(weight, origin_details, destination_details)
-                    available_option = ups_rates.select{|k| k.first=='UPS Ground'}.first
-                    available_prices << ('%.2f' % (available_option.last.to_f/100)) if available_option.present?
-                    weight_type = 'Standard Ground'
+                    if data.blank?
+                      available_option = ups_rates.select{|k| k.first=='UPS Ground'}.first
+                      available_prices << ('%.2f' % (available_option.last.to_f/100)) if available_option.present?
+                      weight_type = 'Standard Ground'
+                      data << { total_price: (available_prices.min.to_f+ 8.00), currency: "USD", shipping_type: 'Standard Ground'}
+                    end
                 end
             else
                 shipping_obj = get_shipping_rate(weight, destination_address['country'], destination_address['province'])
