@@ -98,25 +98,24 @@ class ShippingWeight < ApplicationRecord
               shipping_obj = ShippingWeight.get_light_weight_shipping_rate(weight, destination_address['country'], destination_address['province'])
               if shipping_obj.present?
                   available_prices << shipping_obj.price.to_f
-                  weight_type = 'Light Weight'
-                  data << { total_price: (available_prices.min.to_f+ 8.00), currency: "USD", shipping_type: 'Light Weight'}
+                  weight_type = shipping_label_with_country(destination_address['country'], 'Light Weight')
+                  data << { total_price: (available_prices.min.to_f+ 8.00), currency: "USD", shipping_type: weight_type}
               end
-              if ups_rate
+              if ups_rate && data.blank?
                   origin_details = {country: origin_address['country'], province: origin_address['province'], city: origin_address['city'], zip: origin_address['postal_code']}
                   destination_details = {country: destination_address['country'], province: destination_address['province'], city: destination_address['city'], zip: destination_address['postal_code']}
                   ups_rates = ShippingWeight.get_ups_shipping_rate(weight, origin_details, destination_details)
-                  if data.blank?
-                    available_option = ups_rates.select{|k| k.first=='UPS Ground'}.first
-                    available_prices << ('%.2f' % (available_option.last.to_f/100)) if available_option.present?
-                    weight_type = 'Standard Ground'
-                    data << { total_price: (available_prices.min.to_f+ 8.00), currency: "USD", shipping_type: 'Standard Ground'}
-                  end
+                  available_option = ups_rates.select{|k| k.first=='UPS Ground'}.first
+                  available_prices << ('%.2f' % (available_option.last.to_f/100)) if available_option.present?
+                  weight_type = shipping_label_with_country(destination_address['country'], 'UPS Ground')
+                  data << { total_price: (available_prices.min.to_f+ 8.00), currency: "USD", shipping_type: weight_type}
               end
           else
               shipping_obj = get_shipping_rate(weight, destination_address['country'], destination_address['province'])
               if shipping_obj.present?
                   available_prices << shipping_obj.price.to_f
-                  weight_type = 'Heavy Weight'
+                  label = (weight < 300 ? 'UPS Ground' : 'Truck Delivery')
+                  weight_type = shipping_label_with_country(destination_address['country'], label)
               end
           end 
       end
