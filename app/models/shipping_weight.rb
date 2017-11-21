@@ -32,8 +32,8 @@ class ShippingWeight < ApplicationRecord
               shipping_obj = get_shipping_rate(weight, destination_address['country'], destination_address['province'])
               if shipping_obj.present?
                   available_prices << shipping_obj.price.to_f
-                  label = (weight < 300 ? 'UPS Ground' : 'Truck Delivery')
-                  weight_type = shipping_label_with_country(destination_address['country'], label)
+                  # label = (weight < 300 ? 'UPS Ground' : 'Truck Delivery')
+                  weight_type = shipping_label_with_country(destination_address['country'], 'Truck Delivery')
               end
           end
       end

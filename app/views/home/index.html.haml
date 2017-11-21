@@ -18,8 +18,8 @@
             = country
           %td
             = state 
-          - b_weights.each do |weight|
+          - @sheet_headers.each do |s|
             %td
-              = weight.price
+              = b_weights.select{|d| d.weight == s.weight}.first.price
 
 %br
