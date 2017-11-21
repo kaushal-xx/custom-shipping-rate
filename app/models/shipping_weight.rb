@@ -53,7 +53,7 @@ class ShippingWeight < ApplicationRecord
   def self.get_ups_second_day_rate(params)
       ups_rates = @usp_response || get_ups_rates(params)
       if ups_rates.present?
-          available_option = ups_rates.select{|k| k.first=='UPS Second Day Air' || k.first == 'UPS Worldwide Expedited'}.first
+          available_option = ups_rates.select{|k| k.first=='UPS Second Day Air'}.first
            if available_option.present?
               '%.2f' % (available_option.last.to_f/100)
           end
@@ -237,7 +237,7 @@ class ShippingWeight < ApplicationRecord
           end
       end
   end
-  
+
   def self.delete_all_records
       ShippingWeight.delete_all   
   end
