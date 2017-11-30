@@ -103,7 +103,7 @@ class ShippingWeight < ApplicationRecord
                     origin_details = {country: origin_address['country'], province: origin_address['province'], city: origin_address['city'], zip: origin_address['postal_code']}
                     destination_details = {country: destination_address['country'], province: destination_address['province'], city: destination_address['city'], zip: destination_address['postal_code']}
                     ups_rates = ShippingWeight.get_ups_shipping_rate(weight, origin_details, destination_details)
-                    available_option = ups_rates.select{|k| k.first=='UPS Ground'}.first
+                    available_option = ups_rates.select{|k| k.first=='UPS Ground' || k.first=='UPS Standard'}.first
                     available_prices << ('%.2f' % (available_option.last.to_f/100)) if available_option.present?
                     weight_type = 'Standard Ground'
                 end
