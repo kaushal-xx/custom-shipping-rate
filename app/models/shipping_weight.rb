@@ -221,7 +221,7 @@ class ShippingWeight < ApplicationRecord
       }   
       (2..spreadsheet.last_row).each do |row|
           headers.each do |h|
-              if h[1] != 0 && h[0].to_f > 0
+              if h[1] != 0 && h[0].to_f > 0 && h[1].to_f > 0
                   country = spreadsheet.row(row)[0]
                   state = spreadsheet.row(row)[1]
                   weight = h[0].to_f
