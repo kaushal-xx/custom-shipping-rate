@@ -173,9 +173,9 @@ class ShippingWeight < ApplicationRecord
 
   def self.get_light_weight_shipping_rate(weight, country, state)
       if weight <= light_weight_limit(country)
-          weights = ShippingWeight.where("country = ? and state = ? and weight <= ?", country, state, weight).order("weight")
+          weights = ShippingWeight.where("country = ? and state = ? and weight >= ?", country, state, weight).order("weight")
           if weights.present?
-              weights.last
+              weights.first
           else
               ShippingWeight.where("country = ? and state = ?", country, state).order("weight").first
           end
