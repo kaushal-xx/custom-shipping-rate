@@ -4,4 +4,4 @@ ShopifyApp.configure do |config|
   config.scope = "read_script_tags, write_script_tags, write_shipping"
   config.embedded_app = true
 end
-SITE_URL = 'https://custom-shipping-rate.herokuapp.com/'
+SITE_URL = 'https://fissler-b2b-shipping-rate.herokuapp.com/'

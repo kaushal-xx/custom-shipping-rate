@@ -8,17 +8,17 @@ default: &default
 
 development:
   <<: *default
-  database: shipping-custom-rate_development
+  database: fissler-b2b-shipping-rate_development
 
 test:
   <<: *default
-  database: shipping-custom-rate_test
+  database: fissler-b2b-shipping-rate_test
 
 staging:
   <<: *default
-  database: shipping-custom-rate_staging
+  database: fissler-b2b-shipping-rate_staging
 
 production:
   <<: *default
-  database: shipping-custom-rate_production
+  database: fissler-b2b-shipping-rate_production
 
