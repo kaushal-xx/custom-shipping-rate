@@ -15,14 +15,14 @@ class ShippingWeight < ApplicationRecord
       end
       if weight > 0.0
           if weight < 150
-              if weight > light_weight_limit(destination_address['country']) && ups_rate
+              if weight > ShippingWeight.light_weight_limit(destination_address['country']) && ups_rate
                   ups_price = get_ups_ground_rate(params)
                   if ups_price.present?
                       available_prices << ups_price
                       weight_type = shipping_label_with_country(destination_address['country'], 'UPS Ground')
                   end
               else
-                  shipping_obj = get_light_weight_shipping_rate(weight, destination_address['country'], destination_address['province'])
+                  shipping_obj = ShippingWeight.get_light_weight_shipping_rate(weight, destination_address['country'], destination_address['province'])
                   if shipping_obj.present?
                       available_prices << shipping_obj.price.to_f
                       weight_type = shipping_label_with_country(destination_address['country'], 'Light Weight')
