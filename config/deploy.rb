@@ -4,7 +4,7 @@ server '34.210.189.85', user: 'deployer', roles: %w{web app db}
 
 set :application, "master-aws"
 set :repo_url, "git@github.com:kaushal-xx/custom-shipping-rate.git"
-set :branch, 'master-aws'
+set :branch, 'master-aws-marriott-draft-order'
 set :deploy_to, '/home/deployer/BulkOrder'
 set :pty, true
 set :linked_files, %w{config/database.yml}

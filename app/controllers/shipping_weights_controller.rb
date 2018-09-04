@@ -22,7 +22,11 @@ class ShippingWeightsController < ApplicationController
     puts shipping_price
     Rails.logger.info "*************************"
     if shipping_price.last.to_f > 0.0
-      shipping_rate = shipping_price.last.to_f + 8.00
+      if shipping_price.size <= 2
+        shipping_rate = shipping_price.last.to_f + 8.00
+      else
+        shipping_rate = shipping_price.last.to_f
+      end
       data = {
           "rates" => [
 
@@ -35,6 +39,7 @@ class ShippingWeightsController < ApplicationController
                }
            ]
         }
+      if shipping_price.size <= 2
         ups_second_day = ShippingWeight.get_ups_second_day_rate(params)
         if ups_second_day.present?
           data['rates'] << {
@@ -45,6 +50,7 @@ class ShippingWeightsController < ApplicationController
             "currency" => "USD"
           }
         end
+      end
     else
       data = {}
     end

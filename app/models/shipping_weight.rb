@@ -8,6 +8,10 @@ class ShippingWeight < ApplicationRecord
 		total_weight = items.map{|s| s['grams'] * s['quantity']}.sum
 		product_weight = ('%.2f' % (total_weight*0.0022)).to_f
 		weight_type = ''
+		shipping_price = draft_order_shipping_price(params)
+		if shipping_price.present?
+			return ['Standard Shipping', 'Custom Shipping Price' ,shipping_price.to_f]
+		end
 		if product_weight > 149.00 && product_weight < 150.00
 			weight = 150.00
 		else
@@ -117,48 +121,6 @@ class ShippingWeight < ApplicationRecord
 		return (available_prices.blank? ? [weight_type, 'Not found'] : [weight_type, available_prices.min])
 	end
 
-	def self.valid_params(params)
-		errors = []
-		if params['from_address'].blank?
-			errors << "From Address can't be blank."
-		else
-			if params['from_address']['country'].blank?
-				errors << "Country can't be blank."
-			end
-			if params['from_address']['province'].blank?
-				errors << "Province can't be blank."
-			end
-			if params['from_address']['city'].blank?
-				errors << "City can't be blank."
-			end
-			if params['from_address']['postal_code'].blank?
-				errors << "Postal code can't be blank."
-			end
-		end
-		if params['to_address'].blank?
-			errors << "From Address can't be blank."
-		else
-			if params['to_address']['country'].blank?
-				errors << "Country can't be blank."
-			end
-			if params['to_address']['province'].blank?
-				errors << "Province can't be blank."
-			end
-			if params['to_address']['city'].blank?
-				errors << "City can't be blank."
-			end
-			if params['to_address']['postal_code'].blank?
-				errors << "Postal code can't be blank."
-			end
-		end
-		if params['total_weight'].blank?
-			errors << "Total weight can't be blank."
-		elsif params['total_weight'].to_f <= 0.0
-			errors << "Total weight can't less then and equal to zero."
-	    end
-		errors
-	end
-
 	def self.get_shipping_rate(weight, country, state)
 		weights = ShippingWeight.where("country = ? and state = ?", country, state).order("weight")
 		if weights.present?
@@ -190,7 +152,7 @@ class ShippingWeight < ApplicationRecord
 
 	def self.get_ups_shipping_rate(weight, origin_details, destination_details)
 		begin
-			packages = [ActiveShipping::Package.new(weight*16.1,[12, 8.75, 6], units: :imperial)]
+			packages = [ActiveShipping::Package.new(weight*16.1,[30.0, 20.0, 15.0], units: :imperial)]
 			origin = ActiveShipping::Location.new(origin_details)
 			destination = ActiveShipping::Location.new(destination_details)
 			ups = ActiveShipping::UPS.new(login: ENV["ups_user_id"], password: ENV["ups_password"], key: ENV["ups_key"])
@@ -201,7 +163,7 @@ class ShippingWeight < ApplicationRecord
 			puts e.message
 			{}
 		end
-	end
+	end 
 
 	def self.import(file)
 		self.delete_all_records
@@ -239,4 +201,9 @@ class ShippingWeight < ApplicationRecord
 			label
 		end
 	end
+
+	def self.draft_order_shipping_price(params)
+		params['rate']['items'].map{|s| (s['properties']||{})['__shipping_price']}.first
+	end
+
 end
