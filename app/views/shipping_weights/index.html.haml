@@ -20,7 +20,7 @@
             = state
           - @sheet_headers.each do |s|
             %td
-              = b_weights.select{|d| d.weight == s.weight}.first.price
+              = b_weights.select{|d| d.weight == s.weight}.first.price rescue 0
 
 %br
 - if current_user.present?

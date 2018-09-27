@@ -23,7 +23,7 @@ class ShippingWeight < ApplicationRecord
         end
         if weight > 0.0
             if weight < 150
-                if weight > light_weight_limit && ups_rate
+                if weight > light_weight_limit(destination_address['country']) && ups_rate
                     ups_price = get_ups_ground_rate(params)
                     if ups_price.present?
                         available_prices << ups_price
@@ -137,7 +137,7 @@ class ShippingWeight < ApplicationRecord
     end
 
     def self.get_light_weight_shipping_rate(weight, country, state)
-        if weight <= light_weight_limit
+        if weight <= light_weight_limit(country)
             weights = ShippingWeight.where("country = ? and state = ? and weight <= ?", country, state, weight).order("weight")
             if weights.present?
                 weights.last
@@ -147,10 +147,12 @@ class ShippingWeight < ApplicationRecord
         end
     end
 
-    def self.light_weight_limit(max_limit = 150)
-        weight_obj = ShippingWeight.where("weight < ?", max_limit).order("weight").last
+    def self.light_weight_limit(country = 'US', max_limit = 150)
+        weight_obj = ShippingWeight.where("weight < ? and country = ?", max_limit, country).order("weight").last
         if weight_obj.present?
             weight_obj.weight
+        else
+            0
         end
     end
 
