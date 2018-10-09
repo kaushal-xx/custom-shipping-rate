@@ -158,7 +158,7 @@ class ShippingWeight < ApplicationRecord
 
     def self.get_ups_shipping_rate(weight, origin_details, destination_details)
         begin
-            packages = [ActiveShipping::Package.new(weight*16.1,[30.0, 20.0, 15.0], units: :imperial)]
+            packages = [ActiveShipping::Package.new(weight*16,[30.0, 20.0, 15.0], units: :imperial)]
             origin = ActiveShipping::Location.new(origin_details)
             destination = ActiveShipping::Location.new(destination_details)
             ups = ActiveShipping::UPS.new(login: ENV["ups_user_id"], password: ENV["ups_password"], key: ENV["ups_key"])
