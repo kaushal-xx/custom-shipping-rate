@@ -1,4 +1,4 @@
-class CreateShippingWeights < ActiveRecord::Migration[5.0]
+class CreateShippingWeights < ActiveRecord::Migration
   def change
     create_table :shipping_weights do |t|
       t.string  :country

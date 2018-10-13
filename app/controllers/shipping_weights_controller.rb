@@ -1,6 +1,4 @@
 class ShippingWeightsController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :shipping_cal, :rates]
-  skip_before_filter :verify_authenticity_token, :only => [:upload_location, :shipping_cal,:rates]
   before_action :set_shipping_weight, only: [:show, :edit, :update, :destroy]
   before_action :set_shipping_weight_state_weight, only: [:update_sheet]
 
@@ -16,71 +14,6 @@ class ShippingWeightsController < ApplicationController
     end  
   end
 
-  def shipping_cal
-    shipping_price = ShippingWeight.get_price(params, true)
-    Rails.logger.info "*************************"
-    puts shipping_price
-    Rails.logger.info "*************************"
-    if shipping_price.last.to_f > 0.0
-      if shipping_price.size <= 2
-        shipping_rate = shipping_price.last.to_f + 8.00
-      else
-        shipping_rate = shipping_price.last.to_f
-      end
-      data = {
-          "rates" => [
-
-               {
-                   "service_name" => "#{shipping_price.first}",
-                   "service_code" => "ON",
-                   "total_price" => shipping_rate*100,
-                   "description" => "Select this option for all orders",
-                   "currency" => "USD"
-               }
-           ]
-        }
-      if shipping_price.size <= 2
-        ups_second_day = ShippingWeight.get_ups_second_day_rate(params)
-        if ups_second_day.present?
-          data['rates'] << {
-            "service_name" => 'UPS Second Day Air',
-            "service_code" => "ON",
-            "total_price" => (ups_second_day.to_f+ 8.00)*100,
-            "description" => "Select this option for all orders",
-            "currency" => "USD"
-          }
-        end
-      end
-    else
-      data = {}
-    end
-    render json: data
-  end
-
-  def rates
-    errors = ShippingWeight.valid_params(params)
-    data = {}
-    if errors.blank?
-      begin
-        shipping_price = ShippingWeight.get_price_for_api(params['from_address'], params['to_address'], params['total_weight'], true)
-        Rails.logger.info "*************************"
-        puts shipping_price
-        Rails.logger.info "*************************"
-        if shipping_price.last.to_f > 0.0
-          shipping_rate = shipping_price.last.to_f + 8.00
-          data = { rates: { total_price: shipping_rate.to_f, currency: "USD", shipping_type: "#{shipping_price.first}"} }
-        else
-          data = {errors: ["Shipping rate can't calculate."]}
-        end
-      rescue Exception => e
-        data = { errors: e }
-      end
-    else
-      data = { errors: errors }
-    end
-    render json: data
-  end
-
   def upload_location
     ShippingWeight.import(params[:file])
     respond_to do |format|
@@ -90,7 +23,6 @@ class ShippingWeightsController < ApplicationController
   end
 
   def update_sheet       
-      #abort params[:shipping_weight][:state].inspect
     respond_to do |format|
       if @shipping_weight.update(state: params[:shipping_weight][:state], weight: params[:shipping_weight][:weight], price: params[:shipping_weight][:price])
         format.json { render nothing: true, status: :ok }

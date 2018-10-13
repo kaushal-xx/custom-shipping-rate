@@ -36,7 +36,6 @@ gem 'rails_12factor'
 gem 'blockuijs-rails',  :git => 'git://github.com/rusanu/blockuijs-rails.git'
 gem 'bootstrap-multiselect-rails'
 
-gem 'shopify_api'
 gem 'activeresource', github: 'rails/activeresource'
 gem 'shopify_app'
 gem "figaro"
@@ -49,6 +48,7 @@ gem 'newrelic_rpm'
 
 # For xls/xlsx/csv upload
 gem 'roo'
+gem "rubyXL"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

@@ -1,0 +1,786 @@
+<% @email_title = "Shipping price #{@subject} for your Quote! " %>
+<% @email_body = "Below is a summary of the items from your quote." %>
+<% @store_url = "https://shopmarriottmerch.com" %>
+<% @store_email = "marriott@lapineinc.com" %>
+<% @store_logo_url = "https://cdn.shopify.com/s/files/1/2439/5133/t/3/assets/logo.png?16290241040422703209" %>
+<% @store_logo_width = "334" %>
+<!-- --------------------Theme settings--------------------------- -->
+<% @headerBar_1_clr = "#000000" %>
+<% @headerBar_2_clr = "#141414" %>
+<% @headerBar_3_clr = "#ededed" %>
+<% @date_clr = "#ffffff" %>
+<!-- --------------------Theme settings--------------------------- -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:v="urn:schemas-microsoft-com:vml"
+  xmlns:o="urn:schemas-microsoft-com:office:office">
+  <head>
+    <meta http-equiv="Content-Security-Policy" content="script-src 'none'; style-src * 'unsafe-inline'; default-src *; img-src * data:">
+  </head>
+  <body>
+    
+    <!--[if gte mso 9]><xml>
+    <officedocumentsettings>
+  <allowpng></allowpng>
+<pixelsperinch>96</pixelsperinch>
+</officedocumentsettings>
+</xml><![endif]-->
+<title><%= @email_tile %></title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0 ">
+<meta name="format-detection" content="telephone=no">
+<style>body {
+margin: 0 !important; padding: 0 !important; -webkit-text-size-adjust: 100% !important; -ms-text-size-adjust: 100% !important; -webkit-font-smoothing: antialiased !important;
+}
+img {
+border: 0 !important; outline: none !important;
+}
+@media only screen and (min-width:481px) and (max-width:667px) {
+.em_main_table {
+width: 480px !important;
+}
+.em_wrapper {
+width: 100% !important;
+}
+.em_hide {
+display: none !important;
+}
+.em_full_img {
+width: 100% !important; height: auto !important;
+}
+.em_left {
+text-align: left !important;
+}
+.em_height {
+height: 20px !important;
+}
+.em_aside {
+padding: 0 20px !important;
+}
+.em_font14 {
+text-align: center !important;
+}
+.em_aside1 {
+padding: 0 10px !important;
+}
+.em_wrapper2 {
+width: 60% !important; clear: none !important; float: right !important;
+}
+.em_wrapper1 {
+width: 35% !important; clear: none !important; float: left !important;
+}
+.em_spacer1 {
+width: 20px !important;
+}
+.em_font1 {
+font-family: Helvetica, Arial, sans-serif !important; font-size: 14px !important; line-height: 22px !important; color: #000000 !important; padding-left: 80px !important;
+}
+.em_font2 {
+font-family: Helvetica, Arial, sans-serif !important; font-size: 14px !important; line-height: 22px !important; color: #000000 !important; font-weight: bold !important; padding-left: 80px !important;
+}
+.em_auto {
+height: auto !important;
+}
+.em_pad_top {
+padding-top: 20px !important;
+}
+.em_height50 {
+height: 50px !important;
+}
+}
+@media only screen and (min-width:375px) and (max-width:480px) {
+.em_main_table {
+width: 375px !important;
+}
+.em_wrapper {
+width: 100% !important;
+}
+.em_hide {
+display: none !important;
+}
+.em_full_img {
+width: 100% !important; height: auto !important;
+}
+.em_left {
+text-align: left !important;
+}
+.em_height {
+height: 20px !important;
+}
+.em_aside {
+padding: 0 20px !important;
+}
+u + .em_body .em_full_wrap {
+width: 100vw !important;
+}
+.em_font24 {
+font-size: 24px !important; line-height: 27px !important;
+}
+.em_font14 {
+font-size: 14px !important; line-height: 17px !important; text-align: center !important;
+}
+.em_aside1 {
+padding: 0 10px !important;
+}
+.em_spacer {
+width: 5px !important;
+}
+.em_wrapper2 {
+width: 60% !important; clear: none !important; float: right !important;
+}
+.em_wrapper1 {
+width: 35% !important; clear: none !important; float: left !important;
+}
+.em_spacer1 {
+width: 20px !important;
+}
+.em_font1 {
+font-family: Helvetica, Arial, sans-serif !important; font-size: 14px !important; line-height: 22px !important; color: #000000 !important; padding-left: 80px !important;
+}
+.em_font2 {
+font-family: Helvetica, Arial, sans-serif !important; font-size: 14px !important; line-height: 22px !important; color: #000000 !important; font-weight: bold !important; padding-left: 80px !important;
+}
+.em_height30 {
+height: 30px !important;
+}
+.em_auto {
+height: auto !important;
+}
+.em_pad_top {
+padding-top: 20px !important;
+}
+.em_height50 {
+height: 50px !important;
+}
+}
+@media screen and (max-width:374px) {
+.em_main_table {
+width: 320px !important;
+}
+.em_wrapper {
+width: 100% !important;
+}
+.em_hide {
+display: none !important;
+}
+.em_full_img {
+width: 100% !important; height: auto !important;
+}
+.em_left {
+text-align: left !important;
+}
+.em_height {
+height: 20px !important;
+}
+.em_aside {
+padding: 0 20px !important;
+}
+u + .em_body .em_full_wrap {
+width: 100vw !important;
+}
+.em_font24 {
+font-size: 22px !important; line-height: 25px !important;
+}
+.em_font14 {
+font-size: 12px !important; line-height: 15px !important; text-align: center !important;
+}
+.em_aside1 {
+padding: 0 10px !important;
+}
+.em_spacer {
+width: 5px !important;
+}
+.em_wrapper2 {
+width: 55% !important; clear: none !important; float: right !important;
+}
+.em_wrapper1 {
+width: 45% !important; clear: none !important; float: left !important;
+}
+.em_spacer1 {
+width: 20px !important;
+}
+.em_font1 {
+font-family: Helvetica, Arial, sans-serif !important; font-size: 14px !important; line-height: 22px !important; color: #000000 !important; padding-left: 80px !important;
+}
+.em_font2 {
+font-family: Helvetica, Arial, sans-serif !important; font-size: 14px !important; line-height: 22px !important; color: #000000 !important; font-weight: bold !important; padding-left: 80px !important;
+}
+.em_height30 {
+height: 30px !important;
+}
+.em_auto {
+height: auto !important;
+}
+.em_pad_top {
+padding-top: 20px !important;
+}
+.em_height50 {
+height: 50px !important;
+}
+.em_font12 {
+font-size: 12px !important; line-height: 22px !important;
+}
+}
+</style>
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="em_full_wrap" bgcolor="#ffffff" style="border-collapse: collapse; mso-table-lspace: 0px; mso-table-rspace: 0px;">
+  <tbody><tr>
+    <td align="center" valign="top" bgcolor="<%= @headerBar_1_clr %>" style="border-collapse: collapse; mso-line-height-rule: exactly;"><table align="center" width="860" border="0" cellspacing="0" cellpadding="0" class="em_main_table" style="width: 860px; border-collapse: collapse; mso-table-lspace: 0px; mso-table-rspace: 0px;">
+      <!--Header-->
+      <tbody><tr>
+        <td align="center" valign="top" class="em_aside" style="border-collapse: collapse; mso-line-height-rule: exactly; padding: 0 5px;"><table align="center" width="850" border="0" cellspacing="0" cellpadding="0" class="em_wrapper" style="width: 850px; border-collapse: collapse; mso-table-lspace: 0px; mso-table-rspace: 0px;">
+          <tbody><tr>
+            <td valign="top" align="center" style="border-collapse: collapse; mso-line-height-rule: exactly;">
+              <table width="334" border="0" cellspacing="0" cellpadding="0" align="left" class="em_wrapper" style="width: 334px; border-collapse: collapse; mso-table-lspace: 0px; mso-table-rspace: 0px;">
+                <tbody><tr>
+                  <td height="15" style="font-size: 1px; line-height: 1px; border-collapse: collapse; mso-line-height-rule: exactly;">&nbsp;</td>
+                </tr>
+                <tr>
+                  <td align="left" valign="top" style="border-collapse: collapse; mso-line-height-rule: exactly;"><a href="<%= @store_url %>" target="_blank" style="text-decoration: none; border-collapse: collapse; mso-line-height-rule: exactly;"><img class="em_full_img" src="<%= @store_logo_url %>" width="<%= @store_logo_width %>" height1="60" alt="<%= @store_url %> By LAPINE" border="0" style="display: block; font-family: Arial, sans-serif; font-size: 10px; line-height: 15px; color: #ffffff; max-width: 334px; outline: none !important; border: 0;"></a></td>
+                </tr>
+                <tr>
+                  <td height="25" style="font-size: 1px; line-height: 1px; border-collapse: collapse; mso-line-height-rule: exactly;">&nbsp;</td>
+                </tr>
+              </tbody></table>
+              
+              <!--[if gte mso 9]><td valign="top"></td><![endif]-->
+              
+              <table width="275" border="0" cellspacing="0" cellpadding="0" align="right" class="em_wrapper" style="width: 275px; border-collapse: collapse; mso-table-lspace: 0px; mso-table-rspace: 0px;">
+                <tbody><tr>
+                  <td height="40" style="font-size: 1px; line-height: 1px; border-collapse: collapse; mso-line-height-rule: exactly;" class="em_hide">&nbsp;</td>
+                </tr>
+                <tr>
+                  <td align="right" valign="top" class="em_white em_left" style="font-family: Helvetica, Arial, sans-serif; font-size: 14px; line-height: 18px; color: <%= @date_clr %>; border-collapse: collapse; mso-line-height-rule: exactly;"><%= Date.today.strftime("%B") %> <%= Date.today.strftime("%d")%>, <%= Date.today.strftime("%Y")%></td>
+                </tr>
+                <tr>
+                  <td height="25" style="font-size: 1px; line-height: 1px; border-collapse: collapse; mso-line-height-rule: exactly;">&nbsp;</td>
+                </tr>
+              </tbody></table>
+            </td>
+          </tr>
+        </tbody></table></td>
+      </tr>
+      <!--//Header-->
+      
+    </tbody></table></td>
+  </tr>
+  <tr>
+    <td align="center" valign="top" bgcolor="<%= @headerBar_2_clr %>" style="border-collapse: collapse; mso-line-height-rule: exactly;"><table align="center" width="860" border="0" cellspacing="0" cellpadding="0" class="em_main_table" style="width: 860px; border-collapse: collapse; mso-table-lspace: 0px; mso-table-rspace: 0px;">
+      <tbody><tr>
+        <td align="center" valign="top" class="em_aside" style="border-collapse: collapse; mso-line-height-rule: exactly; padding: 0 5px;"><table align="center" width="850" border="0" cellspacing="0" cellpadding="0" class="em_wrapper" style="width: 850px; border-collapse: collapse; mso-table-lspace: 0px; mso-table-rspace: 0px;">
+          <tbody><tr>
+            <td height="40" style="font-size: 1px; line-height: 1px; border-collapse: collapse; mso-line-height-rule: exactly;">&nbsp;</td>
+          </tr>
+          <tr>
+            <td align="center" valign="top" class="em_aside1" style="border-collapse: collapse; mso-line-height-rule: exactly;"><table width="441" border="0" cellspacing="0" cellpadding="0" align="center" class="em_wrapper" style="width: 441px; max-width: 441px; border-collapse: collapse; mso-table-lspace: 0px; mso-table-rspace: 0px;">
+              <tbody><tr>
+                <td align="center" valign="top" style="padding-bottom: 5px; border-collapse: collapse; mso-line-height-rule: exactly;"><table width="100%" border="0" cellspacing="0" cellpadding="0" style="border-collapse: collapse; mso-table-lspace: 0px; mso-table-rspace: 0px;">
+                  <tbody><tr>
+                    <td align="center" valign="top" width="51" style="width: 51px; border-collapse: collapse; mso-line-height-rule: exactly;"><img src="https://cdn.shopify.com/s/files/1/1205/2858/files/QuoteCreation.png?7930141089982066453" alt="" width="51" height="50" style="display: block; outline: none !important; border: 0;" border="0"></td>
+                    <td align="center" valign="top" style="border-collapse: collapse; mso-line-height-rule: exactly;"><table width="100%" border="0" cellspacing="0" cellpadding="0" style="border-collapse: collapse; mso-table-lspace: 0px; mso-table-rspace: 0px;">
+                      <tbody><tr>
+                        <td height="23" style="border-collapse: collapse; mso-line-height-rule: exactly;">&nbsp;</td>
+                      </tr>
+                      <tr>
+                        <td height="5" style="font-size: 1px; line-height: 1px; border-collapse: collapse; mso-line-height-rule: exactly;" bgcolor="<%= @headerBar_3_clr %>">&nbsp;</td>
+                      </tr>
+                    </tbody></table></td>
+                    <td align="center" valign="top" width="51" style="width: 51px; border-collapse: collapse; mso-line-height-rule: exactly;"><img src="https://cdn.shopify.com/s/files/1/1205/2858/files/icon_1_2.png?4191884150989363743" alt="" width="51" height="50" style="display: block; outline: none !important; border: 0;" border="0"></td>
+                    <td align="center" valign="top" style="border-collapse: collapse; mso-line-height-rule: exactly;"><table width="100%" border="0" cellspacing="0" cellpadding="0" style="border-collapse: collapse; mso-table-lspace: 0px; mso-table-rspace: 0px;">
+                      <tbody><tr>
+                        <td height="23" style="border-collapse: collapse; mso-line-height-rule: exactly;">&nbsp;</td>
+                      </tr>
+                      <tr>
+                        <td height="5" style="font-size: 1px; line-height: 1px; border-collapse: collapse; mso-line-height-rule: exactly;" bgcolor="<%= @headerBar_3_clr %>">&nbsp;</td>
+                      </tr>
+                    </tbody></table></td>
+                    <td align="center" valign="top" width="51" style="width: 51px; border-collapse: collapse; mso-line-height-rule: exactly;"><img src="https://cdn.shopify.com/s/files/1/1994/2295/files/icon_2_1.png" alt="" width="51" height="50" style="display: block; outline: none !important; border: 0;" border="0"></td>
+                    <td align="center" valign="top" style="border-collapse: collapse; mso-line-height-rule: exactly;"><table width="100%" border="0" cellspacing="0" cellpadding="0" style="border-collapse: collapse; mso-table-lspace: 0px; mso-table-rspace: 0px;">
+                      <tbody><tr>
+                        <td height="23" style="border-collapse: collapse; mso-line-height-rule: exactly;">&nbsp;</td>
+                      </tr>
+                      <tr>
+                        <td height="5" style="font-size: 1px; line-height: 1px; border-collapse: collapse; mso-line-height-rule: exactly;" bgcolor="<%= @headerBar_3_clr %>">&nbsp;</td>
+                      </tr>
+                    </tbody></table></td>
+                    <td align="center" valign="top" width="51" style="width: 51px; border-collapse: collapse; mso-line-height-rule: exactly;"><img src="https://cdn.shopify.com/s/files/1/1994/2295/files/icon_3_1.png" alt="" width="51" height="50" style="display: block; outline: none !important; border: 0;" border="0"></td>
+                    <td width="10" class="em_spacer" style="border-collapse: collapse; mso-line-height-rule: exactly;">&nbsp;</td>
+                  </tr>
+                </tbody></table></td>
+              </tr>
+              <tr>
+                <td align="center" valign="top" style="border-collapse: collapse; mso-line-height-rule: exactly;"><table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" style="border-collapse: collapse; mso-table-lspace: 0px; mso-table-rspace: 0px;">
+                  <tbody><tr>
+                    <td align="center" valign="top" class="em_white" style="font-family: Helvetica, Arial, sans-serif; font-size: 14px; line-height: 18px; color: #ffffff; border-collapse: collapse; mso-line-height-rule: exactly;">Quote Created</td>
+                    <td width="130" style="width: 130px; border-collapse: collapse; mso-line-height-rule: exactly;">&nbsp;</td>
+                    <td align="center" valign="top" class="em_white" style="font-family: Helvetica, Arial, sans-serif; font-size: 14px; line-height: 18px; color: #ffffff; border-collapse: collapse; mso-line-height-rule: exactly;">Ordered</td>
+                    <td width="130" style="width: 130px; border-collapse: collapse; mso-line-height-rule: exactly;">&nbsp;</td>
+                    <td align="center" valign="top" class="em_white" style="font-family: Helvetica, Arial, sans-serif; font-size: 14px; line-height: 18px; color: #ffffff; border-collapse: collapse; mso-line-height-rule: exactly;">Shipped</td>
+                    <td width="130" style="width: 130px; border-collapse: collapse; mso-line-height-rule: exactly;">&nbsp;</td>
+                    <td align="center" valign="top" class="em_white" style="font-family: Helvetica, Arial, sans-serif; font-size: 14px; line-height: 18px; color: #ffffff; border-collapse: collapse; mso-line-height-rule: exactly;">Delivered</td>
+                  </tr>
+                </tbody></table></td>
+              </tr>
+            </tbody></table></td>
+          </tr>
+          <tr>
+            <td height="38" style="font-size: 1px; line-height: 1px; border-collapse: collapse; mso-line-height-rule: exactly;">&nbsp;</td>
+          </tr>
+        </tbody></table></td>
+      </tr>
+    </tbody></table></td>
+  </tr>
+  <tr>
+    <td align="center" valign="top" bgcolor="<%= @headerBar_3_clr %>" style="border-collapse: collapse; mso-line-height-rule: exactly;"><table align="center" width="860" border="0" cellspacing="0" cellpadding="0" class="em_main_table" style="width: 860px; border-collapse: collapse; mso-table-lspace: 0px; mso-table-rspace: 0px;">
+      <tbody><tr>
+        <td align="center" valign="top" class="em_aside" style="border-collapse: collapse; mso-line-height-rule: exactly; padding: 0 5px;"><table align="center" width="850" border="0" cellspacing="0" cellpadding="0" class="em_wrapper" style="width: 850px; border-collapse: collapse; mso-table-lspace: 0px; mso-table-rspace: 0px;">
+          <tbody><tr>
+            <td height="45" style="font-size: 1px; line-height: 1px; border-collapse: collapse; mso-line-height-rule: exactly;">&nbsp;</td>
+          </tr>
+          <tr>
+            <td align="left" valign="top" class="em_font24" style="font-family: Helvetica, Arial, sans-serif; font-size: 30px; line-height: 33px; color: #000000; font-weight: bold; border-collapse: collapse; mso-line-height-rule: exactly;"><%= @email_title %></td>
+          </tr>
+          <tr>
+            <td height="38" style="font-size: 1px; line-height: 1px; border-collapse: collapse; mso-line-height-rule: exactly;">&nbsp;</td>
+          </tr>
+          <tr>
+            <td align="left" valign="top" class="em_black" style="font-family: Helvetica, Arial, sans-serif; font-size: 18px; line-height: 24px; color: #000000; padding-bottom: 10px; border-collapse: collapse; mso-line-height-rule: exactly;">Hi <%= @order.customer.first_name.nil? ? @order.customer.default_address.first_name :  @order.customer.first_name %> <%= @order.customer.last_name.nil? ? @order.customer.default_address.last_name : @order.customer.last_name %>,</td>
+          </tr>
+          <tr>
+            <td align="left" valign="top" class="em_black" style="font-family: Helvetica, Arial, sans-serif; font-size: 18px; line-height: 24px; color: #000000; border-collapse: collapse; mso-line-height-rule: exactly;"><%= @email_body %></td>
+          </tr>
+          <tr>
+            <td height="70" style="font-size: 1px; line-height: 1px; border-collapse: collapse; mso-line-height-rule: exactly;" class="em_height50">&nbsp;</td>
+          </tr>
+        </tbody></table></td>
+      </tr>
+    </tbody></table></td>
+  </tr>
+  <tr>
+    <td align="center" valign="top" style="border-collapse: collapse; mso-line-height-rule: exactly;"><table align="center" width="860" border="0" cellspacing="0" cellpadding="0" class="em_main_table" style="width: 860px; border-collapse: collapse; mso-table-lspace: 0px; mso-table-rspace: 0px;">
+      
+      <!--Body Content-->
+      <tbody><tr>
+        <td align="center" valign="top" class="em_aside" style="border-collapse: collapse; mso-line-height-rule: exactly; padding: 0 5px;"><table align="center" width="850" border="0" cellspacing="0" cellpadding="0" class="em_wrapper" style="width: 850px; border-collapse: collapse; mso-table-lspace: 0px; mso-table-rspace: 0px;">
+          <tbody><tr>
+            <td height="50" style="border-collapse: collapse; mso-line-height-rule: exactly;">&nbsp;</td>
+          </tr>
+          <tr>
+            <td align="left" valign="top" class="em_black" style="font-family: Helvetica, Arial, sans-serif; font-size: 14px; line-height: 18px; color: #000000; font-weight: bold; padding-bottom: 17px; border-collapse: collapse; mso-line-height-rule: exactly;">QUOTE SUMMARY</td>
+          </tr>
+          <tr>
+            <td align="left" valign="top" class="em_black" style="font-family: Helvetica, Arial, sans-serif; font-size: 14px; line-height: 18px; color: #000000; border-collapse: collapse; mso-line-height-rule: exactly;">Quote: <%= @order.name %></td>
+          </tr>
+          <tr>
+            <td height="20" style="font-size: 1px; line-height: 1px; border-collapse: collapse; mso-line-height-rule: exactly;">&nbsp;</td>
+          </tr>
+          <tr>
+            <td valign="top" align="center" bgcolor="<%= @headerBar_3_clr %>" class="em_aside" style="border-collapse: collapse; mso-line-height-rule: exactly; padding: 0 20px;"><table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" style="border-collapse: collapse; mso-table-lspace: 0px; mso-table-rspace: 0px;">
+              <tbody><tr>
+                <td height="18" style="font-size: 1px; line-height: 1px; border-collapse: collapse; mso-line-height-rule: exactly;">&nbsp;</td>
+              </tr>
+              <tr>
+                <td align="center" valign="top" style="border-collapse: collapse; mso-line-height-rule: exactly;"><table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" style="border-collapse: collapse; mso-table-lspace: 0px; mso-table-rspace: 0px;">
+                  <tbody><tr>
+                    <td valign="top" align="center" style="border-collapse: collapse; mso-line-height-rule: exactly;">
+                      <table width="140" border="0" cellspacing="0" cellpadding="0" align="left" class="em_wrapper" style="border-collapse: collapse; mso-table-lspace: 0px; mso-table-rspace: 0px;">
+                        <tbody><tr>
+                          <td valign="top" align="left" style="border-collapse: collapse; mso-line-height-rule: exactly;"><table width="100%" border="0" cellspacing="0" cellpadding="0" align="left" style="border-collapse: collapse; mso-table-lspace: 0px; mso-table-rspace: 0px;">
+                            <tbody><tr>
+                              <td valign="top" align="center" style="border-collapse: collapse; mso-line-height-rule: exactly;">
+                                <!-- <table width="100" border="0" cellspacing="0" cellpadding="0" align="left" class="em_wrapper">
+                                  <tr>
+                                    <td align="center" valign="top"><table width="100" border="0" cellspacing="0" cellpadding="0" align="left" style="clear:both; float:left;"  class="em_wrapper1">
+                                      <tr>
+                                        <td align="left" valign="top" class="em_black" style="font-family:Helvetica, Arial, sans-serif; font-size:11px; line-height:14px; color:#777777; padding-bottom:10px;">BILL TO ORDER: </td>
+                                      </tr>
+                                    </table>
+                                    <table width="100" border="0" cellspacing="0" cellpadding="0" align="right" style="clear:both; float:left;"  class="em_wrapper2">
+                                      <tr>
+                                        <td align="left" valign="top" class="em_black" style="font-family:Helvetica, Arial, sans-serif; font-size:14px; line-height:18px; color:#000000;"></td>
+                                      </tr>
+                                    </table></td>
+                                  </tr>
+                                </table> -->
+                                
+                                <!--[if gte mso 9]><td valign="top"></td><![endif]-->
+                                
+                                <table width="120" border="0" cellspacing="0" cellpadding="0" align="right" class="em_wrapper" style="border-collapse: collapse; mso-table-lspace: 0px; mso-table-rspace: 0px;">
+                                  <tbody><tr>
+                                    <td align="left" valign="top" class="em_pad_top" style="border-collapse: collapse; mso-line-height-rule: exactly;">
+                                      <table width="120" border="0" cellspacing="0" cellpadding="0" align="left" style="clear: both; float: left; border-collapse: collapse; mso-table-lspace: 0px; mso-table-rspace: 0px;" class="em_wrapper1">
+                                        <tbody><tr>
+                                          <td align="left" valign="top" class="em_black" style="font-family: Helvetica, Arial, sans-serif; font-size: 11px; line-height: 14px; color: #777777; padding-bottom: 10px; border-collapse: collapse; mso-line-height-rule: exactly;">SHIP TO ORDER: </td>
+                                        </tr>
+                                      </tbody></table>
+                                      <table width="120" border="0" cellspacing="0" cellpadding="0" align="right" style="clear: both; float: left; border-collapse: collapse; mso-table-lspace: 0px; mso-table-rspace: 0px;" class="em_wrapper2">
+                                        <tbody><tr>
+                                          <td align="left" valign="top" class="em_black" style="font-family: Helvetica, Arial, sans-serif; font-size: 14px; line-height: 18px; color: #165f9b; border-collapse: collapse; mso-line-height-rule: exactly;"><span style="text-decoration: underline; color: #2a7bbd; border-collapse: collapse; mso-line-height-rule: exactly;">
+                                            <% if @international == true %>
+                                              <a href="<%= @store_url %>/account?view=draft-detail-international&id=<%= @order.id %>" target="_blank" style="text-decoration: underline; color: #165f9b; border-collapse: collapse; mso-line-height-rule: exactly;"><%= @order.name %></a>
+                                            <% else %>
+                                              <a href="<%= @store_url %>/account?view=draft-detail&id=<%= @order.id %>" target="_blank" style="text-decoration: underline; color: #165f9b; border-collapse: collapse; mso-line-height-rule: exactly;"><%= @order.name %></a>
+                                            <% end %>
+                                            </span></td>
+                                        </tr>
+                                      </tbody></table>
+                                    </td>
+                                  </tr>
+                                </tbody></table>
+                              </td>
+                            </tr>
+                          </tbody></table></td>
+                        </tr>
+                      </tbody></table>
+                      
+                      <!--[if gte mso 9]><td valign="top"></td><![endif]-->
+                      
+                      <table width="665" border="0" cellspacing="0" cellpadding="0" align="right" class="em_wrapper" style="border-collapse: collapse; mso-table-lspace: 0px; mso-table-rspace: 0px;">
+                        <tbody><tr>
+                          <td valign="top" align="center" style="border-collapse: collapse; mso-line-height-rule: exactly;">
+                            <table width="90" border="0" cellspacing="0" cellpadding="0" align="left" class="em_wrapper" style="border-collapse: collapse; mso-table-lspace: 0px; mso-table-rspace: 0px;">
+                              <tbody><tr>
+                                <td align="center" valign="top" class="em_pad_top" style="border-collapse: collapse; mso-line-height-rule: exactly;">
+                                  <table width="90" border="0" cellspacing="0" cellpadding="0" align="left" style="clear: both; float: left; border-collapse: collapse; mso-table-lspace: 0px; mso-table-rspace: 0px;" class="em_wrapper1">
+                                    <tbody><tr>
+                                      <td align="left" valign="top" class="em_black" style="font-family: Helvetica, Arial, sans-serif; font-size: 11px; line-height: 14px; color: #777777; padding-bottom: 10px; border-collapse: collapse; mso-line-height-rule: exactly;">SHIP TO NAME: </td>
+                                    </tr>
+                                  </tbody></table>
+                                  <table width="90" border="0" cellspacing="0" cellpadding="0" align="right" style="clear: both; float: left; border-collapse: collapse; mso-table-lspace: 0px; mso-table-rspace: 0px;" class="em_wrapper2">
+                                    <tbody><tr>
+                                      <td align="left" valign="top" class="em_black" style="font-family: Helvetica, Arial, sans-serif; font-size: 14px; line-height: 18px; color: #000000; border-collapse: collapse; mso-line-height-rule: exactly;"><%= @order.shipping_address.first_name %> <%= @order.shipping_address.last_name %></td>
+                                    </tr>
+                                  </tbody></table>
+                                </td>
+                              </tr>
+                            </tbody></table>
+                            
+                            <!--[if gte mso 9]><td valign="top"></td><![endif]-->
+                            
+                            <table width="550" border="0" cellspacing="0" cellpadding="0" align="right" class="em_wrapper" style="border-collapse: collapse; mso-table-lspace: 0px; mso-table-rspace: 0px;">
+                              <tbody><tr>
+                                <td align="center" valign="top" class="em_pad_top" style="border-collapse: collapse; mso-line-height-rule: exactly;">
+                                  <table width="550" border="0" cellspacing="0" cellpadding="0" align="left" style="clear: both; float: left; border-collapse: collapse; mso-table-lspace: 0px; mso-table-rspace: 0px;" class="em_wrapper1">
+                                    <tbody><tr>
+                                      <td align="left" valign="top" class="em_black" style="font-family: Helvetica, Arial, sans-serif; font-size: 11px; line-height: 14px; color: #777777; padding-bottom: 10px; border-collapse: collapse; mso-line-height-rule: exactly;">SHIP TO ADDRESS:</td>
+                                    </tr>
+                                  </tbody></table>
+                                  <table width="550" border="0" cellspacing="0" cellpadding="0" align="right" style="clear: both; float: left; border-collapse: collapse; mso-table-lspace: 0px; mso-table-rspace: 0px;" class="em_wrapper2">
+                                    <tbody><tr>
+                                      <td align="left" valign="top" class="em_black" style="font-family: Helvetica, Arial, sans-serif; font-size: 14px; line-height: 18px; color: #000000; border-collapse: collapse; mso-line-height-rule: exactly;"><%= @order.shipping_address.address1 %>, <%= @order.shipping_address.city %>, <%= @order.shipping_address.province %>, <%= @order.shipping_address.zip %>, <%= @order.shipping_address.country %></td>
+                                    </tr>
+                                  </tbody></table>
+                                </td>
+                              </tr>
+                            </tbody></table>
+                          </td>
+                        </tr>
+                      </tbody></table>
+                    </td>
+                  </tr>
+                </tbody></table></td>
+              </tr>
+              <tr>
+                <td height="20" style="font-size: 1px; line-height: 1px; border-collapse: collapse; mso-line-height-rule: exactly;">&nbsp;</td>
+              </tr>
+            </tbody></table></td>
+          </tr>
+          <tr>
+            <td height="48" style="border-collapse: collapse; mso-line-height-rule: exactly;">&nbsp;</td>
+          </tr>
+          <tr>
+            <td height="2" bgcolor="#eeeeee" style="font-size: 1px; line-height: 1px; border-collapse: collapse; mso-line-height-rule: exactly;">&nbsp;</td>
+          </tr>
+          <tr>
+            <td height="7" style="font-size: 1px; line-height: 1px; border-collapse: collapse; mso-line-height-rule: exactly;">&nbsp;</td>
+          </tr>
+          <tr>
+            <td align="center" valign="top" style="border-collapse: collapse; mso-line-height-rule: exactly;"><table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" style="border-collapse: collapse; mso-table-lspace: 0px; mso-table-rspace: 0px;">
+              <tbody><tr>
+                <td align="left" valign="top" class="em_black" style="font-family: Helvetica, Arial, sans-serif; font-size: 11px; line-height: 15px; color: #777777; border-collapse: collapse; mso-line-height-rule: exactly;">ITEM INFO</td>
+                <td align="right" valign="top" width="80" class="em_hide" style="font-family: Helvetica, Arial, sans-serif; font-size: 11px; line-height: 15px; color: #777777; border-collapse: collapse; mso-line-height-rule: exactly;">UNIT PRICE</td>
+                <td align="right" valign="top" width="60" class="em_hide" style="font-family: Helvetica, Arial, sans-serif; font-size: 11px; line-height: 15px; color: #777777; border-collapse: collapse; mso-line-height-rule: exactly;">QTY</td>
+                <td align="right" valign="top" width="120" class="em_hide" style="font-family: Helvetica, Arial, sans-serif; font-size: 11px; line-height: 15px; color: #777777; border-collapse: collapse; mso-line-height-rule: exactly;">AMOUNT</td>
+              </tr>
+            </tbody></table></td>
+          </tr>
+          <tr>
+            <td height="5" style="font-size: 1px; line-height: 1px; border-collapse: collapse; mso-line-height-rule: exactly;">&nbsp;</td>
+          </tr>
+          <tr>
+            <td height="2" bgcolor="#eeeeee" style="font-size: 1px; line-height: 1px; border-collapse: collapse; mso-line-height-rule: exactly;">&nbsp;</td>
+          </tr>
+          <tr>
+            <td height="20" style="font-size: 1px; line-height: 1px; border-collapse: collapse; mso-line-height-rule: exactly;">&nbsp;</td>
+          </tr>
+          
+          <% @order.line_items.each_with_index do|line, index| %>
+          <tr>
+            <td valign="top" align="center" style="border-collapse: collapse; mso-line-height-rule: exactly;"><table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" style="border-collapse: collapse; mso-table-lspace: 0px; mso-table-rspace: 0px;">
+              <tbody><tr>
+                <td valign="top" align="center" style="border-collapse: collapse; mso-line-height-rule: exactly;">
+                  <table width="560" border="0" cellspacing="0" cellpadding="0" align="left" class="em_wrapper" style="border-collapse: collapse; mso-table-lspace: 0px; mso-table-rspace: 0px;">
+                    <tbody><tr>
+                      <td valign="top" align="center" width="60" style="border-collapse: collapse; mso-line-height-rule: exactly;"><table width="60" border="0" cellspacing="0" cellpadding="0" style="border-collapse: collapse; mso-table-lspace: 0px; mso-table-rspace: 0px;">
+                        <tbody>
+                          <tr>
+                            <td height="6" style="font-size: 1px; line-height: 1px; border-collapse: collapse; mso-line-height-rule: exactly;">&nbsp;</td>
+                          </tr>
+                          <tr>
+                            <td align="center" valign="top" width="60" style="border-collapse: collapse; mso-line-height-rule: exactly;">
+                              <a href="/products/<%= ShopifyAPI::Product.find(line.product_id).handle %>?variant=<%= line.variant_id %>" target="_blank" style="text-decoration: none; border-collapse: collapse; mso-line-height-rule: exactly;">
+                                <img src="<%= ShopifyAPI::Product.find(line.product_id).image.src %>" width="42" height1="52" alt="Women's Heritage Eco Rich Packable Shirt Jacket" border="0" style="display: block; font-family: Arial, sans-serif; font-size: 20px; line-height: 25px; color: #424242; outline: none !important; border: 0;">
+                              </a>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </td>
+                      <td width="30" class="em_spacer1" style="border-collapse: collapse; mso-line-height-rule: exactly;">&nbsp;</td>
+                      <td valign="top" align="center" style="border-collapse: collapse; mso-line-height-rule: exactly;"><table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" style="border-collapse: collapse; mso-table-lspace: 0px; mso-table-rspace: 0px;">
+                        <tbody>
+                          <tr>
+                          
+                          <td align="left" valign="top" class="em_black em_font12" style="font-family: Helvetica, Arial, sans-serif; font-size: 14px; line-height: 20px; color: #000000; border-collapse: collapse; mso-line-height-rule: exactly;">
+                            <span style="text-decoration: underline; color: #165f9b; border-collapse: collapse; mso-line-height-rule: exactly;"><a href="/products/<%= ShopifyAPI::Product.find(line.product_id).handle %>?variant=<%= line.variant_id %>" target="_blank" style="text-decoration: underline; color: #165f9b; border-collapse: collapse; mso-line-height-rule: exactly;"><%= truncate(line.title, :length => 26) %></a></span>
+                            
+                            <p style="margin: 0px; padding: 0px;"></p>
+                            
+                            <% if line.sku %>
+                            <p style="margin: 0px; padding: 0px;">SKU: <%= line.sku %></p>
+                            <% end %>
+                            
+                          </td>
+                        </tr>
+                      </tbody></table></td>
+                    </tr>
+                  </tbody></table>
+                  
+                  <!--[if gte mso 9]><td valign="top"></td><![endif]-->
+                  
+                  <table width="260" border="0" cellspacing="0" cellpadding="0" align="right" class="em_wrapper" style="border-collapse: collapse; mso-table-lspace: 0px; mso-table-rspace: 0px;">
+                    <tbody><tr>
+                      <td valign="top" style="border-collapse: collapse; mso-line-height-rule: exactly;"><table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" style="border-collapse: collapse; mso-table-lspace: 0px; mso-table-rspace: 0px;">
+                        <tbody><tr>
+                          <td valign="top" style="border-collapse: collapse; mso-line-height-rule: exactly;">
+                            <table align="left" class="em_wrapper" width="140" border="0" cellspacing="0" cellpadding="0" style="border-collapse: collapse; mso-table-lspace: 0px; mso-table-rspace: 0px;">
+                              <tbody><tr>
+                                <td valign="top" style="border-collapse: collapse; mso-line-height-rule: exactly;">
+                                  <table width="80" border="0" cellspacing="0" cellpadding="0" align="left" class="em_wrapper" style="border-collapse: collapse; mso-table-lspace: 0px; mso-table-rspace: 0px;">
+                                    <tbody><tr>
+                                      <td align="right" valign="top" style="border-collapse: collapse; mso-line-height-rule: exactly;"><table border="0" cellspacing="0" cellpadding="0" align="right" class="em_wrapper" style="border-collapse: collapse; mso-table-lspace: 0px; mso-table-rspace: 0px;">
+                                        <tbody><tr>
+                                          <td align="left" valign="top" style="border-collapse: collapse; mso-line-height-rule: exactly;"><table border="0" cellspacing="0" cellpadding="0" align="left" style="border-collapse: collapse; mso-table-lspace: 0px; mso-table-rspace: 0px;">
+                                            <tbody><tr>
+                                              <td align="left" valign="top" class="em_font1" style="font-size: 0px; line-height: 0px; color: #ffffff; border-collapse: collapse; mso-line-height-rule: exactly;">Unit Cost:&nbsp;</td>
+                                              <td align="right" valign="middle" height="66" class="em_left em_auto em_font12" style="font-family: Helvetica, Arial, sans-serif; font-size: 14px; line-height: 20px; color: #000000; border-collapse: collapse; mso-line-height-rule: exactly;">$<%= line.price %></td>
+                                            </tr>
+                                          </tbody></table></td>
+                                        </tr>
+                                      </tbody></table></td>
+                                    </tr>
+                                  </tbody></table>
+                                  
+                                  <!--[if mso]><td valign="top"></td><![endif]-->
+                                  
+                                  <table width="60" border="0" cellspacing="0" cellpadding="0" align="right" class="em_wrapper" style="border-collapse: collapse; mso-table-lspace: 0px; mso-table-rspace: 0px;">
+                                    <tbody><tr>
+                                      <td align="right" valign="top" style="border-collapse: collapse; mso-line-height-rule: exactly;"><table border="0" cellspacing="0" cellpadding="0" align="right" class="em_wrapper" style="border-collapse: collapse; mso-table-lspace: 0px; mso-table-rspace: 0px;">
+                                        <tbody><tr>
+                                          <td align="left" valign="top" style="border-collapse: collapse; mso-line-height-rule: exactly;"><table border="0" cellspacing="0" cellpadding="0" align="left" style="border-collapse: collapse; mso-table-lspace: 0px; mso-table-rspace: 0px;">
+                                            <tbody><tr>
+                                              <td align="left" valign="top" class="em_font1" style="font-size: 0px; line-height: 0px; color: #ffffff; border-collapse: collapse; mso-line-height-rule: exactly;">QTY:&nbsp;</td>
+                                              
+                                              
+                                              <td align="right" valign="middle" height="66" class="em_left em_auto em_font12" style="font-family: Helvetica, Arial, sans-serif; font-size: 14px; line-height: 20px; color: #000000; border-collapse: collapse; mso-line-height-rule: exactly;"><%= line.quantity %></td>
+                                            </tr>
+                                          </tbody></table></td>
+                                        </tr>
+                                      </tbody></table></td>
+                                    </tr>
+                                  </tbody></table>
+                                </td>
+                              </tr>
+                            </tbody></table>
+                            
+                            <!--[if mso]><td valign="top"></td><![endif]-->
+                            
+                            <table width="120" border="0" cellspacing="0" cellpadding="0" align="right" class="em_wrapper" style="border-collapse: collapse; mso-table-lspace: 0px; mso-table-rspace: 0px;">
+                              <tbody><tr>
+                                <td align="right" valign="top" style="border-collapse: collapse; mso-line-height-rule: exactly;"><table border="0" cellspacing="0" cellpadding="0" align="right" class="em_wrapper" style="border-collapse: collapse; mso-table-lspace: 0px; mso-table-rspace: 0px;">
+                                  <tbody><tr>
+                                    <td align="left" valign="top" style="border-collapse: collapse; mso-line-height-rule: exactly;"><table border="0" cellspacing="0" cellpadding="0" align="left" style="border-collapse: collapse; mso-table-lspace: 0px; mso-table-rspace: 0px;">
+                                      <tbody><tr>
+                                        <td align="left" valign="top" class="em_font2" style="font-size: 0px; line-height: 0px; color: #ffffff; border-collapse: collapse; mso-line-height-rule: exactly;">Amount:&nbsp;</td>
+                                        <td align="right" valign="middle" height="66" class="em_left em_auto em_font12" style="font-family: Helvetica, Arial, sans-serif; font-size: 14px; line-height: 20px; color: #000000; font-weight: bold; border-collapse: collapse; mso-line-height-rule: exactly;">
+                                          
+                                          $<%= number_with_precision((line.price.to_f * line.quantity.to_f).to_f, :precision => 2) %>
+                                        </td>
+                                      </tr>
+                                    </tbody></table></td>
+                                  </tr>
+                                </tbody></table></td>
+                              </tr>
+                            </tbody></table>
+                          </td>
+                        </tr>
+                      </tbody></table></td>
+                    </tr>
+                  </tbody></table>
+                </td>
+              </tr>
+            </tbody></table></td>
+          </tr>
+            <% unless index == @order.line_items.size - 1 %>
+            <tr>
+              <td height="15" style="font-size: 1px; line-height: 1px; border-collapse: collapse; mso-line-height-rule: exactly;" class="em_height">&nbsp;</td>
+            </tr>
+            <tr>
+              <td height="2" bgcolor="#eeeeee" style="font-size: 1px; line-height: 1px; border-collapse: collapse; mso-line-height-rule: exactly;">&nbsp;</td>
+            </tr>
+            <tr>
+              <td height="20" style="font-size: 1px; line-height: 1px; border-collapse: collapse; mso-line-height-rule: exactly;" class="em_height">&nbsp;</td>
+            </tr>
+            <% end %>
+          <% end %>
+          
+          
+          <tr>
+            <td height="15" style="font-size: 1px; line-height: 1px; border-collapse: collapse; mso-line-height-rule: exactly;" class="em_height">&nbsp;</td>
+          </tr>
+          <tr>
+            <td height="2" bgcolor="#eeeeee" style="font-size: 1px; line-height: 1px; border-collapse: collapse; mso-line-height-rule: exactly;">&nbsp;</td>
+          </tr>
+          <tr>
+            <td height="15" style="font-size: 1px; line-height: 1px; border-collapse: collapse; mso-line-height-rule: exactly;">&nbsp;</td>
+          </tr>
+          <tr>
+            <td align="center" valign="top" style="border-collapse: collapse; mso-line-height-rule: exactly;"><table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" style="border-collapse: collapse; mso-table-lspace: 0px; mso-table-rspace: 0px;">
+              <tbody><tr>
+                <td align="left" valign="top" style="font-family: Helvetica, Arial, sans-serif; font-size: 14px; line-height: 24px; color: #000000; border-collapse: collapse; mso-line-height-rule: exactly;">&nbsp;</td>
+                <td align="center" valign="top" width="190" style="border-collapse: collapse; mso-line-height-rule: exactly;"><table width="190" border="0" cellspacing="0" cellpadding="0" style="border-collapse: collapse; mso-table-lspace: 0px; mso-table-rspace: 0px;">
+                  
+                  <tbody><tr>
+                    <td align="right" valign="top" class="em_font12" style="font-family: Helvetica, Arial, sans-serif; font-size: 14px; line-height: 24px; color: #000000; border-collapse: collapse; mso-line-height-rule: exactly;">Subtotal:</td>
+                  </tr>
+                  <tr>
+                    <td align="right" valign="top" class="em_font12" style="font-family: Helvetica, Arial, sans-serif; font-size: 14px; line-height: 24px; color: #000000; border-collapse: collapse; mso-line-height-rule: exactly;">
+                        Freight:
+                    </td>
+                  </tr>
+                  
+                   <tr>
+                    <td align="right" valign="top" class="em_font12" style="font-family: Helvetica, Arial, sans-serif; font-size: 14px; line-height: 24px; color: #000000; border-collapse: collapse; mso-line-height-rule: exactly;">
+                      Duties and Taxes:
+                    </td>
+                  </tr>
+                  
+                  
+                  <tr>
+                    <td align="right" valign="top" class="em_font12" style="font-family: Helvetica, Arial, sans-serif; font-size: 14px; line-height: 24px; color: #000000; font-weight: bold; border-collapse: collapse; mso-line-height-rule: exactly;">Order Total:</td>
+                  </tr>
+                </tbody></table></td>
+                <td align="center" valign="top" width="120" style="border-collapse: collapse; mso-line-height-rule: exactly;"><table width="120" border="0" cellspacing="0" cellpadding="0" style="border-collapse: collapse; mso-table-lspace: 0px; mso-table-rspace: 0px;">
+                  
+                  <tbody><tr>
+                    <td align="right" valign="top" class="em_font12" style="font-family: Helvetica, Arial, sans-serif; font-size: 14px; line-height: 24px; color: #000000; border-collapse: collapse; mso-line-height-rule: exactly;">$<%= @order.subtotal_price %></td>
+                  </tr>
+                  <tr>
+                    <td align="right" valign="top" class="em_font12" style="font-family: Helvetica, Arial, sans-serif; font-size: 14px; line-height: 24px; color: #000000; border-collapse: collapse; mso-line-height-rule: exactly;">
+                      <% @tot_1 = (@order.shipping_line.price.to_f - ((@order.tags.include?("duties_and_taxes:")) ? (@order.tags.split(", ").select{|x| /duties_and_taxes:/ =~ x}.first.split(":")[1]).to_f : 0.00)) %>
+
+                      $<%= number_with_precision(@tot_1.round(2), precision: 2) %>
+                      
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td align="right" valign="top" class="em_font12" style="font-family: Helvetica, Arial, sans-serif; font-size: 14px; line-height: 24px; color: #000000; border-collapse: collapse; mso-line-height-rule: exactly;">
+                      <% @tot_2 = ((@order.tags.include?("duties_and_taxes:")) ? (@order.tags.split(", ").select{|x| /duties_and_taxes:/ =~ x}.first.split(":")[1]).to_f : 0.00) %>
+                      $<%= number_with_precision(@tot_2.round(2), precision: 2) %>
+                      
+                    </td>
+                  </tr>
+                  
+                  <tr>
+                    <td align="right" valign="top" class="em_font12" style="font-family: Helvetica, Arial, sans-serif; font-size: 14px; line-height: 24px; color: #000000; font-weight: bold; border-collapse: collapse; mso-line-height-rule: exactly;">$<%= @order.total_price %> USD</td>
+                  </tr>
+                </tbody></table></td>
+              </tr>
+            </tbody></table></td>
+          </tr>
+          <tr>
+            <td height="45" class="em_height50" style="border-collapse: collapse; mso-line-height-rule: exactly;">&nbsp;</td>
+          </tr>
+        </tbody></table></td>
+      </tr>
+      
+      <!--//Body Content-->
+      <!--Footer-->
+      <tr>
+        <td align="center" valign="top" class="em_aside" style="border-collapse: collapse; mso-line-height-rule: exactly; padding: 0 5px;"><table align="center" width="850" border="0" cellspacing="0" cellpadding="0" class="em_wrapper" style="width: 850px; border-collapse: collapse; mso-table-lspace: 0px; mso-table-rspace: 0px;">
+          <tbody><tr>
+            <td align="center" valign="top" bgcolor="<%= @headerBar_2_clr %>" class="em_aside1" style="border-collapse: collapse; mso-line-height-rule: exactly; padding: 0 40px;"><table align="center" width="770" border="0" cellspacing="0" cellpadding="0" class="em_wrapper" style="width: 770px; border-collapse: collapse; mso-table-lspace: 0px; mso-table-rspace: 0px;">
+              <tbody><tr>
+                <td height="40" class="em_height30" style="border-collapse: collapse; mso-line-height-rule: exactly;">&nbsp;</td>
+              </tr>
+              <tr>
+                <td align="left" valign="top" class="em_white em_font14" style="font-family: Helvetica, Arial, sans-serif; font-size: 18px; line-height: 21px; color: #ffffff; border-collapse: collapse; mso-line-height-rule: exactly;">Need something else? <span style="text-decoration: underline; color: #ffffff; border-collapse: collapse; mso-line-height-rule: exactly;"><a href="<%= @store_url %>" target="_blank" style="text-decoration: underline; color: #ffffff; border-collapse: collapse; mso-line-height-rule: exactly;">Continue shopping.</a></span>
+              </td>
+            </tr>
+            <tr>
+              <td height="40" class="em_height30" style="border-collapse: collapse; mso-line-height-rule: exactly;">&nbsp;</td>
+            </tr>
+          </tbody></table></td>
+        </tr>
+      </tbody></table></td>
+    </tr>
+    <tr>
+      <td align="center" valign="top" class="em_aside" style="border-collapse: collapse; mso-line-height-rule: exactly; padding: 0 5px;"><table align="center" width="850" border="0" cellspacing="0" cellpadding="0" class="em_wrapper" style="width: 850px; border-collapse: collapse; mso-table-lspace: 0px; mso-table-rspace: 0px;">
+        <tbody><tr>
+          <td valign="top" align="center" style="border-collapse: collapse; mso-line-height-rule: exactly;">
+            <table width="450" border="0" cellspacing="0" cellpadding="0" align="left" class="em_wrapper" style="width: 450px; border-collapse: collapse; mso-table-lspace: 0px; mso-table-rspace: 0px;">
+              <tbody><tr>
+                <td height="45" style="font-size: 1px; line-height: 1px; border-collapse: collapse; mso-line-height-rule: exactly;">&nbsp;</td>
+              </tr>
+              <tr>
+                <td align="left" valign="top" class="em_white em_font12" style="font-family: Helvetica, Arial, sans-serif; font-size: 14px; line-height: 18px; color: #000000; border-collapse: collapse; mso-line-height-rule: exactly;">Do not respond directly to this email as this email box is not monitored. If you have any questions, contact us at <a href="mailto:RewardsService@lapineinc.com" style="text-decoration: underline; color: #165f9b; border-collapse: collapse; mso-line-height-rule: exactly;"><%= @store_email %></a>
+              </td>
+            </tr>
+            <tr>
+              <td height="45" style="font-size: 1px; line-height: 1px; border-collapse: collapse; mso-line-height-rule: exactly;" class="em_hide">&nbsp;</td>
+            </tr>
+          </tbody></table>
+          
+          <!--[if gte mso 9]><td valign="top"></td><![endif]-->
+          
+          <table width="275" border="0" cellspacing="0" cellpadding="0" align="right" class="em_wrapper" style="width: 275px; border-collapse: collapse; mso-table-lspace: 0px; mso-table-rspace: 0px;">
+            <tbody><tr>
+              <td height="35" style="font-size: 1px; line-height: 1px; border-collapse: collapse; mso-line-height-rule: exactly;">&nbsp;</td>
+            </tr>
+            <tr>
+              <td height="10" style="font-size: 1px; line-height: 1px; border-collapse: collapse; mso-line-height-rule: exactly;" class="em_hide">&nbsp;</td>
+            </tr>
+            <tr>
+              <td align="right" valign="top" class="em_white em_left em_font12" style="font-family: Helvetica, Arial, sans-serif; font-size: 14px; line-height: 18px; color: #000000; border-collapse: collapse; mso-line-height-rule: exactly;">
+                <span style="text-decoration: underline; color: #000000; border-collapse: collapse; mso-line-height-rule: exactly;"><a href="<%= @store_url %>/pages/cancellation-policy" target="_blank" style="text-decoration: underline; color: #000000; border-collapse: collapse; mso-line-height-rule: exactly;">Cancellation Policy</a></span> &nbsp;&nbsp;&nbsp;&nbsp; <span style="text-decoration: underline; color: #000000; border-collapse: collapse; mso-line-height-rule: exactly;"><a href="<%= @store_url %>/pages/return-policy" target="_blank" style="text-decoration: underline; color: #000000; border-collapse: collapse; mso-line-height-rule: exactly;">Return Policy</a></span>
+              </td>
+            </tr>
+            <tr>
+              <td height="45" style="font-size: 1px; line-height: 1px; border-collapse: collapse; mso-line-height-rule: exactly;">&nbsp;</td>
+            </tr>
+          </tbody></table>
+        </td>
+      </tr>
+    </tbody></table></td>
+  </tr>
+  <!--//Footer-->
+  <tr>
+    <td class="em_hide" style="line-height: 1px; min-width: 860px; border-collapse: collapse; mso-line-height-rule: exactly;" bgcolor="#ffffff"><img alt="" src="https://cdn.shopify.com/s/files/1/1994/2295/files/spacer.gif" height="1" width="860" style="max-height: 1px; min-height: 1px; display: block; width: 860px; min-width: 860px; outline: none !important; border: 0;" border="0"></td>
+  </tr>
+</tbody></table></td>
+</tr>
+</tbody></table>
+<div class="em_hide" style="white-space: nowrap; display: none; font-size: 0px; line-height: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</div>
+
+</body></html>

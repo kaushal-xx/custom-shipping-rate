@@ -1,18 +1,17 @@
 # config valid only for current version of Capistrano
 
-server '34.210.189.85', user: 'deployer', roles: %w{web app db}
+server '52.33.83.122', user: 'deployer', roles: %w{web app db}
 
-set :application, "master-aws"
+set :application, "PinkDolphin"
 set :repo_url, "git@github.com:kaushal-xx/custom-shipping-rate.git"
-set :branch, 'master-aws-marriott-draft-order'
-set :deploy_to, '/home/deployer/BulkOrder'
-set :pty, true
+set :scm, :git
+set :branch, 'aws-marriott-draft-order-app'
+set :deploy_to, '/home/deployer/Marriot'
 set :linked_files, %w{config/database.yml}
 set :linked_dirs, %w{log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system public/uploads}
 set :keep_releases, 5
 set :rvm_type, :user
-set :rvm_ruby_version, 'ruby-2.3.1' # Edit this if you are using MRI Ruby
-set :rvm1_map_bins, fetch(:rvm1_map_bins).to_a.concat(%w(sidekiq sidekiqctl))
+# set :rvm_ruby_version, '2.4.1@golden_eagle_app' # Edit this if you are using MRI Ruby
 set :puma_rackup, -> { File.join(current_path, 'config.ru') }
 set :puma_state, "#{shared_path}/tmp/pids/puma.state"
 set :puma_pid, "#{shared_path}/tmp/pids/puma.pid"
@@ -28,6 +27,14 @@ set :puma_worker_timeout, nil
 set :puma_init_active_record, true
 set :puma_preload_app, false
 set :pty, true
+set :rvm1_map_bins, %w{rake gem bundle ruby}
+set :assets_roles, [:web, :app] 
+# set :sidekiq_queue, 'default'
+
+set :ssh_options, forward_agent: false
+set :whenever_identifier, ->{ "#{fetch(:application)}_#{fetch(:stage)}" }
+
+# set :sidekiq_monit_use_sudo, false
 
 namespace :puma do
   desc 'Create Directories for Puma Pids and Socket'
@@ -38,7 +45,7 @@ namespace :puma do
     end
   end
 
-  # before :start, :make_dirs
+  before :start, :make_dirs
 end
 
 namespace :deploy do
@@ -68,7 +75,6 @@ namespace :deploy do
       # invoke "sidekiq:restart"
     end
   end
-
   before :starting,     :check_revision
   after  :finishing,    :compile_assets
   after  :finishing,    :cleanup
@@ -99,5 +105,3 @@ end
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
 
-# Default value for keep_releases is 5
-# set :keep_releases, 5
