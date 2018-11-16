@@ -11,9 +11,9 @@ class ShippingWeight < ApplicationRecord
         shipping_price = draft_order_shipping_price(params)
         if shipping_price.present?
             if match_shipping_address?(params) && match_line_items?(params)
-                return ['International Shipping', 'Custom Shipping Price' ,shipping_price.to_f]
+                return ['UPS Worldwide Expedited', 'Custom Shipping Price' ,shipping_price.to_f]
             else
-                return ['International Shipping', 'Not found']
+                return ['UPS Worldwide Expedited', 'Not found']
             end
         end
         if product_weight > 149.00 && product_weight < 150.00
