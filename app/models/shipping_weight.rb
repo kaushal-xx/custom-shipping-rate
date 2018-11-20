@@ -199,7 +199,11 @@ class ShippingWeight < ApplicationRecord
     def self.shipping_label_with_country(country, label)
         if country.downcase == 'ca' || country.downcase == 'mx'
             if label == 'UPS Ground'
-                'Canada Parcel'
+                if country.downcase == 'mx'
+                    'Canada & Mexico Parcel'
+                else
+                    'Canada Parcel'
+                end
             else
                 "Canada #{label}"
             end
