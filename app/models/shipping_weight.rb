@@ -63,7 +63,18 @@ class ShippingWeight < ApplicationRecord
         if ups_rates.present?
             available_option = ups_rates.select{|k| k.first=='UPS Second Day Air'}.first
              if available_option.present?
-                '%.2f' % (available_option.last.to_f/100)
+                ['%.2f' % (available_option.last.to_f/100), 'UPS Second Day Air']
+            end
+        end
+    end
+
+    def self.get_ups_expedited_rate(params)
+        ups_rates = @usp_response || get_ups_rates(params)
+        country = params['rate']['destination']['country']
+        if ups_rates.present?
+            available_option = ups_rates.select{|k| k.first=='UPS Worldwide Expedited'}.first
+             if available_option.present?
+                ['%.2f' % (available_option.last.to_f/100), shipping_expedited_label_with_country(country, 'UPS Expedited')]
             end
         end
     end
@@ -149,7 +160,7 @@ class ShippingWeight < ApplicationRecord
 
     def self.light_weight_limit(country = 'US', max_limit = 150)
         weight_obj = ShippingWeight.where("weight < ? and country = ?", max_limit, country).order("weight").last
-        if weight_obj.present?
+        if weight_obj.present? && country == 'US'
             weight_obj.weight
         else
             0
@@ -203,6 +214,14 @@ class ShippingWeight < ApplicationRecord
             else
                 "Canada #{label}"
             end
+        else
+            label
+        end
+    end
+
+    def self.shipping_expedited_label_with_country(country, label)
+        if country.downcase == 'ca' || country.downcase == 'mx'
+            'Canada and Mexico Expedited'
         else
             label
         end

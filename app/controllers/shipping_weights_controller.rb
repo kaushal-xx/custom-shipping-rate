@@ -40,10 +40,11 @@ class ShippingWeightsController < ApplicationController
            ]
         }
       if shipping_price.size <= 2
-        ups_second_day = ShippingWeight.get_ups_second_day_rate(params)
+        ups_second_day, label = ShippingWeight.get_ups_second_day_rate(params)
+        ups_second_day, label = ShippingWeight.get_ups_expedited_rate(params) if ups_second_day.blank?
         if ups_second_day.present?
           data['rates'] << {
-            "service_name" => 'UPS Second Day Air',
+            "service_name" => label,
             "service_code" => "ON",
             "total_price" => (ups_second_day.to_f+ 8.00)*100,
             "description" => "Select this option for all orders",
