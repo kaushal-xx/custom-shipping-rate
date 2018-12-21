@@ -9,11 +9,13 @@ class ShippingWeight < ApplicationRecord
         product_weight = ('%.2f' % (total_weight*0.0022)).to_f
         weight_type = ''
         shipping_price = draft_order_shipping_price(params)
+        shipping_label = params['rate']['items'].map{|s| (s['properties']||{})['__shipping_label']}.compact.first rescue nil
         if shipping_price.present?
             if match_shipping_address?(params) && match_line_items?(params)
-                return ['UPS Worldwide Expedited', 'Custom Shipping Price' ,shipping_price.to_f]
+                # return  ['UPS Worldwide Expedited', 'Custom Shipping Price' ,shipping_price.to_f]
+                return [(shipping_label || 'UPS Worldwide Expedited'), 'Custom Shipping Price' ,shipping_price.to_f]
             else
-                return ['UPS Worldwide Expedited', 'Not found']
+                return [(shipping_label || 'UPS Worldwide Expedited'), 'Not found']
             end
         end
         if product_weight > 149.00 && product_weight < 150.00
