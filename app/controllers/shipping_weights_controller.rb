@@ -21,7 +21,7 @@ class ShippingWeightsController < ApplicationController
     Rails.logger.info "*************************"
     puts shipping_price
     Rails.logger.info "*************************"
-    if shipping_price.last.to_f > 0.0
+    if shipping_price.last.to_f > 0.0 || (shipping_price.second == 'Custom Shipping Price' && shipping_price.last.to_f >= 0.0)
       if shipping_price.size <= 2
         shipping_rate = shipping_price.last.to_f + 8.00
       else
