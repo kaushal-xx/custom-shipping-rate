@@ -8,17 +8,17 @@ default: &default
 
 development:
   <<: *default
-  database: shipping-custom-rate_development
+  database: primum-shipping-rate_development
 
 test:
   <<: *default
-  database: shipping-custom-rate_test
+  database: primum-shipping-rate_test
 
 staging:
   <<: *default
-  database: shipping-custom-rate_staging
+  database: primum-shipping-rate_staging
 
 production:
   <<: *default
-  database: shipping-custom-rate_production
+  database: primum-shipping-rate_production
 
