@@ -57,7 +57,7 @@ class ShippingWeightsController < ApplicationController
             }
           ups_second_day = ShippingWeight.get_ups_second_day_rate(params)
           if ups_second_day.present?
-            data['rates'] << {{ total_price: ups_second_day.to_f*100, currency: 'USD', shipping_type: 'UPS Second Day Air'}}
+            data['rates'] << { total_price: ups_second_day.to_f*100, currency: 'USD', shipping_type: 'UPS Second Day Air'}
           end
         else
           data = {errors: ["Shipping rate can't calculate."]}
