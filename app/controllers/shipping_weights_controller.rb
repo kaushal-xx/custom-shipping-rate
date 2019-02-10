@@ -51,8 +51,14 @@ class ShippingWeightsController < ApplicationController
         puts shipping_price
         Rails.logger.info "*************************"
         if shipping_price.last.to_f > 0.0
-          shipping_rate = shipping_price.last.to_f + 5.00
-          data = { rates: { total_price: shipping_rate.to_f, currency: "USD", shipping_type: "#{shipping_price.first}"} }
+          shipping_rate = shipping_price.last.to_f
+          data = {
+              'rates' => [{ total_price: shipping_rate.to_f, currency: "USD", shipping_type: "#{shipping_price.first}"}]
+            }
+          ups_second_day = ShippingWeight.get_ups_second_day_rate(params)
+          if ups_second_day.present?
+            data['rates'] << {{ total_price: ups_second_day.to_f*100, currency: 'USD', shipping_type: 'UPS Second Day Air'}}
+          end
         else
           data = {errors: ["Shipping rate can't calculate."]}
         end
