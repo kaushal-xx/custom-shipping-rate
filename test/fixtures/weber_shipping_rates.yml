@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  min_qty: 1
+  max_qty: 1
+  product_type: MyString
+  rate: 1.5
+
+two:
+  min_qty: 1
+  max_qty: 1
+  product_type: MyString
+  rate: 1.5

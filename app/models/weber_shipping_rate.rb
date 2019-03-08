@@ -1,0 +1,2 @@
+class WeberShippingRate < ApplicationRecord
+end
