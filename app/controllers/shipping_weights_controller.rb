@@ -18,11 +18,15 @@ class ShippingWeightsController < ApplicationController
 
   def shipping_cal
     # Parameters: {"rate"=>{"origin"=>{"country"=>"US", "postal_code"=>"01821", "province"=>"MA", "city"=>"BILLERICA", "name"=>nil, "address1"=>"17 Progress Rd.", "address2"=>"", "address3"=>nil, "phone"=>"9786420348", "fax"=>nil, "email"=>nil, "address_type"=>nil, "company_name"=>"Marriott Merchandise by Lapine"}, "destination"=>{"country"=>"US", "postal_code"=>"06902", "province"=>"CT", "city"=>"Stamford", "name"=>"Test Customer", "address1"=>"15 Commerce Rd", "address2"=>"", "address3"=>nil, "phone"=>"(203) 353-3080", "fax"=>nil, "email"=>nil, "address_type"=>nil, "company_name"=>"Test"}, "items"=>[{"name"=>"Westin Pet Welcome Kit (Case of 100)", "sku"=>"SW-DB68WE", "quantity"=>1, "grams"=>7711, "price"=>11410, "vendor"=>"Starwood Merchandise", "requires_shipping"=>true, "taxable"=>true, "fulfillment_service"=>"manual", "properties"=>nil, "product_id"=>219157626906, "variant_id"=>3237115920410}, {"name"=>"Sheraton Pet Welcome Kit (Case of 100)", "sku"=>"SW-DB68SH", "quantity"=>1, "grams"=>7711, "price"=>11410, "vendor"=>"Starwood Merchandise", "requires_shipping"=>true, "taxable"=>true, "fulfillment_service"=>"manual", "properties"=>nil, "product_id"=>219157659674, "variant_id"=>3237115953178}], "currency"=>"USD", "locale"=>"en"}, "shipping_weight"=>{}}
-    params.with_indifferent_access
-    if params[:rate][:items].map(&:vendor).uniq.first == 'Weber Apparel' && params[:rate][:items].map(&:vendor).uniq.count == 1 && params[:rate][:items].sum(&:quantity) < 50
-      price = WeberShippingRate.where(:min_qty >= params[:rate][:items].sum(&:quantity) && :max_qty <= params[:rate][:items].sum(&:quantity)).first.rate.to_f
+    ship_params = params.with_indifferent_access
+    puts "=================================="
+    puts ship_params
+    puts ship_params[:rate][:items]
+    puts "=================================="
+    if ship_params[:rate][:items].map(&:vendor).uniq.first == 'Weber Apparel' && ship_params[:rate][:items].map(&:vendor).uniq.count == 1 && ship_params[:rate][:items].sum(&:quantity) < 50
+      price = WeberShippingRate.where(:min_qty >= ship_params[:rate][:items].sum(&:quantity) && :max_qty <= ship_params[:rate][:items].sum(&:quantity)).first.rate.to_f
       shipping_price = ["UPS Ground", price]
-    elsif params[:rate][:items].map(&:vendor).join(",").downcase.include?("weber") &&  !params[:rate][:items].map(&:vendor).join(",").downcase.include?('apparel')
+    elsif ship_params[:rate][:items].map(&:vendor).join(",").downcase.include?("weber") &&  !ship_params[:rate][:items].map(&:vendor).join(",").downcase.include?('apparel')
       shipping_price = ["UPS Ground", 0.0]
     else
       shipping_price = ShippingWeight.get_price(params, true)
