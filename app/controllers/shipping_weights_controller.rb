@@ -24,9 +24,9 @@ class ShippingWeightsController < ApplicationController
     puts "=================================="
     if params[:rate][:items].map{|x| x[:vendor]}.uniq.first == 'Weber Apparel' && params[:rate][:items].map{|x| x[:vendor]}.uniq.count == 1 && params[:rate][:items].map{|x| x[:quantity]}.sum < 50
       price = WeberShippingRate.where("min_qty <= #{params[:rate][:items].map{|x| x[:quantity]}.sum} AND max_qty >= #{params[:rate][:items].map{|x| x[:quantity]}.sum}").first.rate.to_f
-      shipping_price = ["UPS Ground", price - 8.00]
+      shipping_price = ["UPS Ground", "Custom Shipping Price", price]
     elsif params[:rate][:items].map{|x| x[:vendor]}.join(",").downcase.include?("weber") &&  !params[:rate][:items].map{|x| x[:vendor]}.join(",").downcase.include?('apparel')
-      shipping_price = ["UPS Ground",   -8.00]
+      shipping_price = ["UPS Ground", "Custom Shipping Price", 0.0]
     else
       shipping_price = ShippingWeight.get_price(params, true)
     end
@@ -35,7 +35,7 @@ class ShippingWeightsController < ApplicationController
     Rails.logger.info "*************************"
     puts shipping_price
     Rails.logger.info "*************************"
-    if shipping_price.last.to_f > 0.0 || params[:rate][:items].map{|x| x[:vendor]}.join(",").downcase.include?("weber") || (shipping_price.second == 'Custom Shipping Price' && shipping_price.last.to_f >= 0.0)
+    if shipping_price.last.to_f > 0.0 || (shipping_price.second == 'Custom Shipping Price' && shipping_price.last.to_f >= 0.0)
       if shipping_price.size <= 2 
         shipping_rate = shipping_price.last.to_f + 8.00
       else
