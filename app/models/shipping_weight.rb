@@ -238,7 +238,7 @@ class ShippingWeight < ApplicationRecord
             s['properties'].present? && 
             s['properties']['__lineItems'].present? &&
             s['properties']['__zip'] == params['rate']['destination']['postal_code'] && 
-            s['properties']['__province'] == params['rate']['destination']['province'] && 
+            s['properties']['__province'] == params['rate']['destination']['province'].to_s && 
             s['properties']['__country'] == params['rate']['destination']['country']
         }.present?
     end
