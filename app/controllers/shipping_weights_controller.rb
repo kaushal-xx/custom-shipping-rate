@@ -22,7 +22,8 @@ class ShippingWeightsController < ApplicationController
     puts "=================================="
     puts params[:rate][:items].map{|x| x[:vendor]}.uniq.first
     puts "=================================="
-    weber_apparel_qty_sum = params[:rate][:items].map{|x| x[:quantity] if x[:vendor] == 'Weber Apparel'}.sum
+    # weber_apparel_qty_sum = params[:rate][:items].map{|x| x[:quantity] if x[:vendor] == 'Weber Apparel'}.sum
+    weber_apparel_qty_sum = params[:rate][:items].select{|x| x[:vendor] == 'Weber Apparel'}.map{|x| x[:quantity]}.sum
     if params[:rate][:items].map{|x| x[:vendor]}.include?('Weber Apparel') && weber_apparel_qty_sum < 50
       price = WeberShippingRate.where("min_qty <= #{weber_apparel_qty_sum} AND max_qty >= #{weber_apparel_qty_sum}").first.rate.to_f
       shipping_price = ["UPS Ground", price]
