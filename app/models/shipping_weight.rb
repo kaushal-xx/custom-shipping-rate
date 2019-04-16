@@ -26,15 +26,28 @@ class ShippingWeight < ApplicationRecord
         if weight > 0.0
             if weight < 150
                 if weight > light_weight_limit(destination_address['country']) && ups_rate
+                    puts "--------I am at line number 28---------------"
+                    puts weight
+                    puts "-----------------------"
                     ups_price = get_ups_ground_rate(params)
+                    puts "--------I am at line number 33---------------"
+                    puts ups_price
+                    puts "-----------------------"
                     if ups_price.present?
                         available_prices << ups_price
                         weight_type = shipping_label_with_country(destination_address['country'], 'UPS Ground')
                     end
                 else
                     shipping_obj = get_light_weight_shipping_rate(weight, destination_address['country'], destination_address['province'])
+                    puts "--------I am at line number 42---------------"
+                    puts shipping_obj
+                    puts "-----------------------"
                     if shipping_obj.present?
                         available_prices << shipping_obj.price.to_f
+                        puts "--------I am at line number 47---------------"
+                        puts available_prices
+                        puts weight_type
+                        puts "-----------------------"
                         weight_type = shipping_label_with_country(destination_address['country'], 'Light Weight')
                     end     
                 end
@@ -44,6 +57,10 @@ class ShippingWeight < ApplicationRecord
                     available_prices << shipping_obj.price.to_f
                     label = (weight < 150 ? 'UPS Ground' : 'Truck Delivery')
                     weight_type = shipping_label_with_country(destination_address['country'], label)
+                    puts "--------I am at line number 59---------------"
+                        puts available_prices
+                        puts weight_type
+                        puts "-----------------------"
                 end
             end
         end
