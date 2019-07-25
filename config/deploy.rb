@@ -1,6 +1,6 @@
 # config valid only for current version of Capistrano
 
-server '34.210.189.85', user: 'deployer', roles: %w{web app db}
+server '52.40.245.87', user: 'deployer', roles: %w{web app db}
 
 set :application, "master-aws"
 set :repo_url, "git@github.com:kaushal-xx/custom-shipping-rate.git"
