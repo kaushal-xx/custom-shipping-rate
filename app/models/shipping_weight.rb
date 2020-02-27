@@ -83,7 +83,7 @@ class ShippingWeight < ApplicationRecord
       end
   end
 
-    def self.get_price_for_api(from_address, to_address, total_weight, ups_rate = false)
+  def self.get_price_for_api(from_address, to_address, total_weight, ups_rate = false)
         available_prices = []
         origin_address = from_address
         destination_address = to_address
@@ -116,7 +116,7 @@ class ShippingWeight < ApplicationRecord
             end 
         end
         return (available_prices.blank? ? [weight_type, 'Not found'] : [weight_type, available_prices.min])
-    end
+  end
 
   def self.valid_params(params)
       errors = []
@@ -244,7 +244,9 @@ class ShippingWeight < ApplicationRecord
       else
         "Canada #{label}"
       end
-    else
+    elsif country.downcase == 'mx'
+      "UPSSIN"
+    else 
       label
     end
   end
