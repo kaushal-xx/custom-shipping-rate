@@ -21,7 +21,10 @@ class ShippingWeightsController < ApplicationController
     Rails.logger.info "*************************"
     puts shipping_price
     Rails.logger.info "*************************"
-    if shipping_price.last.to_f > 0.0
+    if shipping_price.last.to_f > 0.0 && !(params['rate']['destination']['country'] == 'US' && ['AK', 'HI'].include?(params['rate']['destination']['province']) && shipping_price.first.include?('UPS'))
+    Rails.logger.info "*********Test****************"
+    puts shipping_price
+    Rails.logger.info "*************************"
       shipping_rate = shipping_price.last.to_f + 8.00
       data = {
           "rates" => [
