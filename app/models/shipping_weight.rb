@@ -245,7 +245,11 @@ class ShippingWeight < ApplicationRecord
         "Canada #{label}"
       end
     elsif country.downcase == 'mx'
-      "UPSSIN"
+      if label == 'UPS Ground'
+        "Canada and Mexico Parcel"
+      else
+        label
+      end
     else 
       label
     end
