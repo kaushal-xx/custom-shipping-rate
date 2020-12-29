@@ -251,22 +251,13 @@ class ShippingWeight < ApplicationRecord
     end
 
     def self.match_shipping_address?(params)
-        if params['rate']['destination']['postal_code'].nil?
-            params['rate']['items'].select{|s| 
-                s['properties'].present? && 
-                s['properties']['__lineItems'].present? &&
-                s['properties']['__province'] == params['rate']['destination']['province'].to_s && 
-                s['properties']['__country'] == params['rate']['destination']['country'].to_s
-            }.present?
-        else
-            params['rate']['items'].select{|s| 
-                s['properties'].present? && 
-                s['properties']['__lineItems'].present? &&
-                s['properties']['__zip'] == params['rate']['destination']['postal_code'] && 
-                s['properties']['__province'] == params['rate']['destination']['province'].to_s && 
-                s['properties']['__country'] == params['rate']['destination']['country'].to_s
-            }.present?
-        end
+         params['rate']['items'].select{|s| 
+            s['properties'].present? && 
+            s['properties']['__lineItems'].present? &&
+            s['properties']['__zip'] == params['rate']['destination']['postal_code'] && 
+            s['properties']['__province'] == params['rate']['destination']['province'].to_s && 
+            s['properties']['__country'] == params['rate']['destination']['country']
+        }.present?
     end
 
     def self.match_line_items?(params)
